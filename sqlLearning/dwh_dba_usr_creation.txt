@@ -1,0 +1,4 @@
+# ======== Create Users ========
+# Create a User                         |           CREATE USER <user_name> IDENTIFIED BY <"user_password">;
+# Grant Role to a User                  |           GRANT <ROLE> TO <user_name>;
+# Grant Privileges to a User            |           GRANT <PRIVILEGE> ON <schema_name[.<table_name>]> TO <user_name>;
