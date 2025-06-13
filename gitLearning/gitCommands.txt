@@ -1,0 +1,15 @@
+# ==== Branching ====
+# Create new local branch                                       |         git branch <branch-name>
+# Switch to local branch                                        |         git checkout <branch-name>
+# Create and Switch to local branch                             |         git checkout -b <branch-name>
+# Delete branch in origin repository                            |         git push origin --delete <branch-name>
+# Delete branch locally (fully merged branch)                   |         git branch -d <branch-name>
+#
+# Check current track changes                                   |         git status
+# Stage changes                                                 |         git add <file> ([, <file>])
+# Unstage changes                                               |         git reset [<file>]
+# Commit staged changes                                         |         git commit -m ["<commit-message>"]
+# Commit empty staged area                                      |         git commit --allow-empty -m ["<commit-message>"]
+# Push and set upstream                                         |         git push -u origin <local-branch-name>
+# Only setupstream                                              |         git push --set-upstream-to=origin/<local-branch-name> <local-branch-name>
+
