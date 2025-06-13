@@ -1,0 +1,34 @@
+# === Build artifacts ===
+# Object files
+*.o
+*.obj
+# Compiled outputs
+*.out
+a.out
+# Executables
+*.exe
+# Mac bundle
+*.app
+
+# === Library / binary files ===
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# === Build directories ===
+/bin/
+/build/
+/dist/
+/cmake-build-*/
+
+# === Extension-less executables (Linux) ===
+*
+!*/
+!*.*
+
+# === OS / editor junk ===
+.DS_Store
+Thumbs.db
+*.swp
