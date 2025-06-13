@@ -1,0 +1,6 @@
+# Rules:
+# 1. Generate and use different SSH keys for different purposes
+# 2. Create different Host "[...]" configurations in ~/.ssh/config file
+# 3. Checkout generating your own encryption key as a pixelArt and using specific pixel RGB values - or values of matrix norms - as the encryption key
+
+
