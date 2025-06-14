@@ -1,3 +1,10 @@
 # ======================= [QUERY, ALIAS, SELECT, ORDER BY, SELECT DISTINCT] =======================
 #
-# Query: 
+# Query:  Operation that retrieves data from one or more tables or views.
+#         -> Top-level SELECT statement is called a Query.
+#         -> Query nested within another SQL statement is called a subsquery.
+#
+# Column Alias:   Example - SELECT <t.first_name> || ' ' || <t.last_name> AS "Full Name" FROM <table> t;
+#                           -> Gives out Column named "Full Name" with all first and last names concatenated.
+#
+#                 Example - SELECT 
