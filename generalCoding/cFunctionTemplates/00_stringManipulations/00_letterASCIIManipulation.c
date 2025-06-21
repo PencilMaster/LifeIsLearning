@@ -7,7 +7,7 @@
 #define LETTERASCIIMANIPULATION.C
 
 
-// ========== This block will count characters in a given string ==========
+// ========== This block will count lower-case characters in a given string ==========
 #include <stdlib.h>
 #include <string.h>
 
@@ -18,7 +18,7 @@ void countCharacters(int* countChar, char* str) {
   }
   return;
 }
-// ========================================================================
+// ===================================================================================
 
 
 
