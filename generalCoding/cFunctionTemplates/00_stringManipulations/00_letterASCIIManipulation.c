@@ -8,6 +8,7 @@
 
 
 // ========== This block will count lower-case characters in a given string ==========
+// Warning: only lower-case, english letters allowed. ASCII values 97 - 122
 #include <stdlib.h>
 #include <string.h>
 
