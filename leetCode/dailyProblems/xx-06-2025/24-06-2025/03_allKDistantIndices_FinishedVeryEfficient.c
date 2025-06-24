@@ -13,6 +13,7 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * Note: The returned array must be malloced, assume caller calls free().
@@ -24,7 +25,7 @@ const int pop_back(const int* array, const int* arraySize) {
 
 //  Very annoying: Leetcode passes array sizes as an int and not size_t........
 //  Now they want us to return an array containing indeces as int and not size_t. This is not save but we'll do it for now
-int* findKDistantIndices(int* nums, int numsSize, int key, int k, int* returnSize) {
+int* findKDistantIndices(const int* nums, const int numsSize, const int key, const int k, int* returnSize) {
 
     assert(numsSize >= 0 && "numsSize can not be negative");
 
@@ -62,6 +63,26 @@ int* findKDistantIndices(int* nums, int numsSize, int key, int k, int* returnSiz
 
     return resultArray;
 }
+
+int main (int args, char** argv) {
+    size_t numsSize = 100;
+    int* nums = malloc(numsSize * sizeof(*nums));
+
+    for (size_t i = 0; i < numsSize; ++i) {
+        nums[i] = rand() % 10;
+    }
+    
+    int key = 6;
+    int returnSize;
+    int* kDistantIndices = findKDistantIndices(nums, (int)numsSize, key, 3, &returnSize);
+    
+    printf("Main executed just fine, amount of indices in k-distance are %d", returnSize);
+
+    return 0;
+}
+
+// TODO: let numsSize = argv[][]; (check again where arguments are exactly saved in argv array)
+//       let key = argv[][];
 
     // Thoughts:
 
