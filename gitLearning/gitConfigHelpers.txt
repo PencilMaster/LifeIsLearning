@@ -1,0 +1,2 @@
+=================== Aliases ===================
+add "alias groot='cd "$(git rev-parse --show-toplevel)"'" to your .zshrc or .bashrc
