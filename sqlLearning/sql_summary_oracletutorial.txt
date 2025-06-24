@@ -4,14 +4,14 @@ Query:          Operation that retrieves data from one or more tables or views.
                 -> Top-level SELECT statement is called a Query.
                 -> Query nested within another SQL statement is called a subsquery.
 
-Column Alias:   Example - SELECT <t.first_name> || ' ' || <t.last_name> AS "Full Name" FROM <table> t;
-                          -> Outputs out Column named "Full Name" with all first and last names concatenated.
+Column Alias:   Example:  SELECT <t.first_name> || ' ' || <t.last_name> AS "Full Name" FROM <table> t;
+                          -> Outputs Column named "Full Name" with all first and last names concatenated.
 
-                Example - SELECT <product_name>, <list_price> - <standard_cost> AS gross_profit FROM products;
+                Example:  SELECT <product_name>, <list_price> - <standard_cost> AS gross_profit FROM products;
                           -> Outputs Column "PRODUCT_NAME" and "GROSS_PROFIT" which contains the difference (<lp> - <sc>).
                           -> Using ORDER BY "gross_profit" [DESC | ASC] is possible.
 
-Table Alias:    Example - SELECT <e.first_name> employee, <m.first_name> manager
+Table Alias:    Example:  SELECT <e.first_name> employee, <m.first_name> manager
                           FROM <employees> e INNER JOIN <employees> m ON <m.employee_id> = <e.manager_id>;
                           -> Possible since execution chain is FROM -> INNER JOIN -> ON -> SELECT
                           -> Column/Table aliases are temporary names during execution of a query.
@@ -19,7 +19,7 @@ Table Alias:    Example - SELECT <e.first_name> employee, <m.first_name> manager
 Select:         Way too much information for now. Will write rest first and any distinct Information to Select will be updated here.
                 For now, now that it is evaluated after FROM. Not immediately after, but because of this aliases in FROM can be used in SELECT.
 
-Order By:       Syntax -  ORDER BY <column_1> [ASC | DESC] [NULLS FIRST | NULLS LAST] {, <column> [ASC | DESC] [NULLS FIRST | NULLS LAST]};
+Order By:       Syntax:   ORDER BY <column_1> [ASC | DESC] [NULLS FIRST | NULLS LAST] {, <column> [ASC | DESC] [NULLS FIRST | NULLS LAST]};
                           -> Default ordering is ascending.
                           -> Influenced through locale defined in LC_COLLATE category. This defines string-comparison (ASC, DESC).
                           -> Positions of columns in SELECT are valid to use as well: ORDER BY 2 ASC, 1;
@@ -27,10 +27,23 @@ Order By:       Syntax -  ORDER BY <column_1> [ASC | DESC] [NULLS FIRST | NULLS 
                                   -> This will output all names alphabetically and upper case first letter before lower case first letter.
                 Sort by date:     Just ORDER BY <date_column> [ASC | DESC];
 
-Select Distinct:  
+Select Distinct:          DISTINCT is SQL standard. Always use DISTINCT. UNIQUE does the same but is Oracle flair and not standard.
+                          -> SELECT DISTINCT <column_name> {, <column_name>} outputs each unique combination of column values from column_list as a record.
+                          -> When you want to remove distinct col_values without having the column in your SELECT, you can use GROUP BY, beware of Explain Plan!
+                          -> DISTINCT treats NULLS as same value.
 
+                          
+======================================= [FILTERING ROWS] =======================================
 
-
+Where:          General:  Used to filter results in SELECT, DELETE and UPDATE etc. statements.
+                          -> Used with [condition | IS NOT NULL | IN | NOT IN | LIKE | [NOT] BETWEEN ... AND ...]. 
+                                  -> Also, combine conditions with [AND | OR | NOT].
+                          -> Written directly after FROM [JOIN ON] and before GROUP BY. Very different from HAVING!
+                          -> Evaluation Sequence: FROM -> WHERE -> SELECT -> ORDER BY.
+                          
+And:            General:  TRUE AND TRUE = TRUE | NULL AND X = X AND NULL = NULL | Otherwise = FALSE.
+                          -> AND takes presedence. Without parantheses, AND is always evaluated first. For ex. in (... OR ... AND ...).
+                          
 
 
 
