@@ -1,0 +1,21 @@
+transaction_id, customer_name, product_id, quantity, total_cost, transaction_date 
+1     , Cole Mendez         , 365   , 5  , 1699.67 , 2025-02-14
+2     , Kathleen Lucero     , 761   , 4  , 465.58  , 2025-04-10
+3     , Ronald Wilson       , 983   , 4  , 1332.63 , 2025-04-13
+4     , John Moss           , 739   , 8  , 811.47  , 2025-03-10
+5     , Jennifer Gilbert    , 710   , 8  , 1547.11 , 2025-03-09
+6     , Terri Horn          , 483   , 10 , 2672.05 , 2025-03-11
+7     , Adrian Young        , 910   , 4  , 1255.22 , 2025-04-05
+8     , Brian Ramirez       , 264   , 9  , 2815.52 , 2025-04-19
+9     , Andrew Mahoney      , 624   , 6  , 591.91  , 2025-03-17
+10    , Danielle Barnes     , 628   , 7  , 3077.16 , 2025-02-24
+11    , Donna Abbott        , 737   , 4  , 25.5    , 2025-03-23
+12    , Eileen Williams     , 355   , 2  , 167.57  , 2025-03-20
+13    , Caroline Perez      , 723   , 8  , 2188.69 , 2025-04-08
+14    , Garrett Morton      , 815   , 5  , 2241.72 , 2025-04-21
+15    , Thomas Thompson     , 286   , 10 , 2484.46 , 2025-03-21
+16    , David Small         , 861   , 6  , 2567.24 , 2025-03-23
+17    , Mark Jimenez        , 636   , 6  , 623.41  , 2025-05-02
+18    , Carolyn Houston     , 148   , 2  , 409.47  , 2025-03-19
+19    , Kelly Reyes         , 130   , 9  , 2360.61 , 2025-04-13
+20    , Matthew Kennedy     , 146   , 5  , 355.0   , 2025-04-18

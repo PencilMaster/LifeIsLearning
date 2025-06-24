@@ -1,0 +1,6 @@
+// ========================= Here we store links to helpful tipps =========================
+// 
+// 1. Do not typecast malloc. It returns a void* pointer which will automatically and safely be promoted
+// https://stackoverflow.com/questions/605845/should-i-cast-the-result-of-malloc-in-c
+//
+//
