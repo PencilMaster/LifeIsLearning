@@ -76,8 +76,9 @@ int main (int args, char** argv) {
     int returnSize;
     int* kDistantIndices = findKDistantIndices(nums, (int)numsSize, key, 3, &returnSize);
     
+    
     printf("Main executed just fine, amount of indices in k-distance are %d", returnSize);
-
+    free(kDistantIndices);
     return 0;
 }
 
