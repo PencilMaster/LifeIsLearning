@@ -97,3 +97,26 @@ int longestSubsequence(const char* s, const int k) {
     free(kBit);
     return longestSubseqLength;
 }
+
+// Super nice solution from someone else, with my comment.
+//
+// Super elegant. we only count the 1s we can take from the right of s, for the whole length of k.
+// Think: if (s[i] == '1') Can we still accomodate this one or will it get bigger than k then? -> If possible, ans++;
+//
+// #include <string.h>
+//
+// int longestSubsequence(char* s, int k) {
+//     int n = strlen(s), ans = 0;
+//     long long val = 0, pow = 1;
+//
+//     for (int i = n - 1; i >= 0; i--) {
+//         if (s[i] == '0') ans++;
+//         else if (pow <= k && val + pow <= k) {
+//
+//             val += pow;
+//             ans++;
+//         }
+//         if (pow <= k) pow <<= 1;
+//     }
+//     return ans;
+// }
