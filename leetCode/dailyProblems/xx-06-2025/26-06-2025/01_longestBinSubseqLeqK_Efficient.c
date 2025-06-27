@@ -33,7 +33,7 @@ int longestSubsequence(const char* s, const int k) {
     size_t calcKLength = 0; // Don't need space for '\0' character since we don't actually compute bin of k
     int upperBound = 1;
     while (calcKLength <= INT_MAX/2 && k >= upperBound) { // k=5, up= 2, c=1, up=4, c=2, up=8, c=3
-        upperBound *= 2;
+        upperBound <<= 1;
         ++calcKLength;
     }
     calcKLength = (k ? calcKLength : 1);
@@ -52,7 +52,7 @@ int longestSubsequence(const char* s, const int k) {
             kBit[--calcKLength] = '1';
         else 
             kBit[--calcKLength] = '0';
-        copyK /= 2;
+        copyK >>= 1;
     }
 
     //DEBUGGING dnoe in leetCode, sadly no gdb here
@@ -97,3 +97,26 @@ int longestSubsequence(const char* s, const int k) {
     free(kBit);
     return longestSubseqLength;
 }
+
+// Super nice solution from someone else, with my comment.
+//
+// Super elegant. we only count the 1s we can take from the right of s, for the whole length of k.
+// Think: if (s[i] == '1') Can we still accomodate this one or will it get bigger than k then? -> If possible, ans++;
+//
+// #include <string.h>
+//
+// int longestSubsequence(char* s, int k) {
+//     int n = strlen(s), ans = 0;
+//     long long val = 0, pow = 1;
+//
+//     for (int i = n - 1; i >= 0; i--) {
+//         if (s[i] == '0') ans++;
+//         else if (pow <= k && val + pow <= k) {
+//
+//             val += pow;
+//             ans++;
+//         }
+//         if (pow <= k) pow <<= 1;
+//     }
+//     return ans;
+// }
