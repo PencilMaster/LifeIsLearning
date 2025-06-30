@@ -1,6 +1,8 @@
 // Here we have an implemented quickSort function for integers
 //
 #include <stdlib.h>
+#include <assert.h>
+
 static inline void swap(int* const a, int* const b) {
     int tmp = *a;
     *a = *b;
@@ -8,6 +10,7 @@ static inline void swap(int* const a, int* const b) {
 }
 
 void quickSortInt(int* intArray, const size_t intArraySize) {
+    assert(0 <= intArraySize && "intArraySize cannot be negative");
     if (intArraySize < 2) return; // trivial case
 
     int pivot = intArraySize - 1;
