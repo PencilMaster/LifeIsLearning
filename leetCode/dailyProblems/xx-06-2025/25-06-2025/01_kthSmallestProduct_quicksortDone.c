@@ -7,25 +7,26 @@
 
 //  No error handling with try / catch yet. Refresh this, check if it adds new 
 //  security vulnerabilities and implement it after getting the code to work without it
+#include <stdlib.h>
+
+static inline void swap(int* const a, int* const b) {
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
 void quickSortInt(int* intArray, const size_t intArraySize) {
     if (intArraySize < 2) return; // trivial case
 
     int pivot = intArraySize - 1;
-    size_t r = intArraySize - 2;
-    for (size_t l = 0; l <= r; ++l) {
-        if (intArray[l] < intArray[pivot]) continue;
-        else {
-            int temp = intArray[l];
-            if (l != r) intArray[l] = intArray[r];
-            intArray[r] = intArray[pivot];
-            intArray[pivot] = temp;
-            --r;
-            --pivot;
-        }
+    size_t l = 0;
+    for (size_t r = 0; r < pivot; ++r) {
+        if (intArray[r] < intArray[pivot]) swap(intArray+(l++), intArray+r);
     }
-    quickSortInt(intArray, (size_t)pivot); // left 
-    quickSortInt(intArray+pivot+1, (size_t)(intArraySize-pivot)); // right, does it need to know if swap occurred? don't think so
+    swap(intArray+l, intArray+pivot);
 
+    quickSortInt(intArray, (size_t)l); // left 
+    quickSortInt(intArray+l+1, (size_t)(intArraySize-l-1)); // right, does it need to know if swap occurred? don't think so
     return;
 }
 
