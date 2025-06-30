@@ -41,9 +41,69 @@ Where:          General:  Used to filter results in SELECT, DELETE and UPDATE et
                           -> Written directly after FROM [JOIN ON] and before GROUP BY. Very different from HAVING!
                           -> Evaluation Sequence: FROM -> WHERE -> SELECT -> ORDER BY.
                           
-And:            General:  TRUE AND TRUE = TRUE | NULL AND X = X AND NULL = NULL | Otherwise = FALSE.
+And:            General:  [TRUE AND TRUE] = TRUE | [NULL AND X] = [X AND NULL] = NULL | Otherwise = FALSE.
                           -> AND takes presedence. Without parantheses, AND is always evaluated first. For ex. in (... OR ... AND ...).
                           
 
+Or:             General:  [TRUE OR X] = [X OR TRUE] = TRUE | [FALSE OR FALSE] = FALSE | Otherwise = NULL.
+                          -> Without parantheses, OR is always evaluated after NOT and AND.
+                          
+In:             Syntax:   expression IN (<column_name>{, <column_name>}) OR expression_2 IN (...).
+                          -> True if expression matches any values ina list or subquery inside (...).
+                          -> Mostly used in WHERE clauses and result can be negated by using NOT IN operator.
 
+Between:        Syntax:   expression BETWEEN low AND high.
+                          -> Mostly used in WHERE clause        
+                          -> Low and high can be literals or expressions
+                          -> Negation is NOT BETWEEN, [exp < low or exp > high]
+                          -> When using BETWEEN DATE x AND DATE y -- If date column has a time component, then it uses midnight per default.
+                             In that case, better use <date_column> >= DATE '' AND <date_column> < DATE 'first day of next month'.
+
+Like:           Syntax:   expression LIKE 'pattern'.
+                          -> Wildcard characters: '%' matches zero or more characters, '_' matches a single character.
+                          -> expression is <column_name> or subquery -> Subquery needs to return a single value (+ bad performance)
+                          -> ESCAPE character '!' treats any wildcard immediately after ! as a regular character.
+                          -> Negation is NOT LIKE
+
+Is Null:        Syntax:   value IS [NOT] NULL
+                          -> NULL is a marker that indicates, that data is missing, not applicable or unknown.
+                          -> NULL cannot be compared using comparison operators. It is also not 0 or an empty string.
+
+
+======================================== [MERGING ROWS] ========================================
+
+General Joins:            1. You can use [AND] and [OR] in join_condition.
+                          2. Watch out, there is a big difference between putting condition in JOIN ON () or in WHERE ().
+                          3. If no join type is specified, then default is LEFT JOIN.
+                          4. Empty column values will be filled with NULL.
+
+Inner Join:     Syntax:   SELECT <column_list> FROM <first_table> INNER JOIN <second_table> ON (join_condition {AND join_condition})
+                          -> INNER JOIN will include all rows that satisfy the join condition (bool expression(s)).
+                          -> You can use other SELECT clauses as well, for example WHERE
+                          -> USING(<column_list>) instead of "ON ...", tests for equality of columns. They need to exist in both tables.
+                          -> We can easily join multiple tables in a row by doing: FROM X INNER JOIN Y USING() INNER JOIN Z USING().
+                             This will do ((FROM X INNER JOIN Y USING()) INNER JOIN Z USING()).
+                          -> 1. It checks values in join_condition_columns in both tables, 
+                             2. It creates a temporary table with all matching rows, merging them,
+                             3. SELECT returns specified columns.
+                      
+Left Join:      Syntax:   SELECT <column_list> FROM <first_table> LEFT JOIN <second_table> ON (join_condition {AND join_condition}).
+                          -> LEFT JOIN returns all rows from the <first_table> and the matching rows from the <second_table>.
+
+Right Join:     Syntax:   Same as LEFT JOIN but for <second_table>.
+
+Full (outer) Join:        FROM <first_table> FULL [OUTER] JOIN <second_table> ON (join_condition).
+                          -> Returns resultset that is a combination of LEFT and RIGHT JOIN on the join_condition.
+                          -> When writing "ON 1 = 1", it does the same as a cross join.
+
+Cross Join:     Syntax:   SELECT <column_list> FROM X CROSS JOIN Y. Without join_condition
+                          -> The result is a cartesian product of the two sets of rows.
+
+Self Join:      Syntax:   Uses other JOINS such as INNER JOIN or LEFT JOIN.
+                          -> It joins a table with itself. Useful to compare rows within a table or query hierarchical data.
+                          -> Important: Use table aliasing. Referencing the same table more than once in a query gives an error.
+                          -> Example: SELECT <e.first_name> employee, <m.first_name> manager
+                                      FROM <employees> e INNER JOIN <employees> m ON <m.employee_id> = <e.manager_id>;
+
+Oracle Joins:   General:  
 
