@@ -27,6 +27,15 @@ Order By:       Syntax:   ORDER BY <column_1> [ASC | DESC] [NULLS FIRST | NULLS 
                                   -> This will output all names alphabetically and upper case first letter before lower case first letter.
                 Sort by date:     Just ORDER BY <date_column> [ASC | DESC];
 
+Oracle Fetch:   Syntax:   [OFFSET offset ROWS] FETCH NEXT [row_count | percent PERCENT] ROWS [ONLY | WITH TIES];
+                          -> General: It limits the number of rows returned by a query.
+                          -> Best used after ORDER BY -> FETCH.
+                          -> Default value of offset: a) When offset <= 0 -> set to 0. 
+                                                      b) If it is NULL or greater than returned rows -> no rows get returned.
+                                                      c) If it is a fraction, the fraciton gets truncated.
+                          -> Can use ROW instead of ROWS and FIRST instead of NEXT.
+                          -> ONLY returns exact number of rows or percentage rows. WITH TIES returns additional rows with same sort key as the last column fetched.
+
 Select Distinct:          DISTINCT is SQL standard. Always use DISTINCT. UNIQUE does the same but is Oracle flair and not standard.
                           -> SELECT DISTINCT <column_name> {, <column_name>} outputs each unique combination of column values from column_list as a record.
                           -> When you want to remove distinct col_values without having the column in your SELECT, you can use GROUP BY, beware of Explain Plan!
@@ -105,5 +114,11 @@ Self Join:      Syntax:   Uses other JOINS such as INNER JOIN or LEFT JOIN.
                           -> Example: SELECT <e.first_name> employee, <m.first_name> manager
                                       FROM <employees> e INNER JOIN <employees> m ON <m.employee_id> = <e.manager_id>;
 
-Oracle Joins:   General:  
+Oracle Joins:   General:  You can build exclusive outer joins with "ON table.id WHERE table.id IS NULL" clause.
+                          -> Like this all rows that fulfill the join_condition are excluded.
+                          -> In a FULL JOIN this is done with "WHERE <first_table.id> IS NULL OR <second_table.id> IS NULL".
 
+
+======================================== [GROUPING ROWS] =======================================
+
+Group By:       Syntax:   
