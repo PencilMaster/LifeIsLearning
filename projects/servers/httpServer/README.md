@@ -2,8 +2,23 @@
 
 1. Learning materials for http: 
 
-Titel, Status, Link, Useful information <br/>
-Protocol Details, In Progress, https://www.rfc-editor.org/rfc/rfc9110.html?, <br/> 
-Socket Programming, Not Started, https://beej.us/guide/bgnet/?, Chapter 6 for TCP server <br/>
-
-
+<table style:="width:100%">
+    <tr>
+        <th>Title</th>    
+        <th>Status</th>    
+        <th>Link</th>    
+        <th>Useful Information</th>    
+    </tr>
+    <tr>
+        <td>Protocol Details</td>    
+        <td>In Progress</td>    
+        <td>https://www.rfc-editor.org/rfc/rfc9110.html?</td>    
+        <td> - </td>    
+    </tr>
+    <tr>
+        <td>Socket Programming</td>    
+        <td>Not Started</td>    
+        <td>https://beej.us/guide/bgnet/?</td>    
+        <td>Chapter 6 for TCP server</td>    
+    </tr>
+</table>
