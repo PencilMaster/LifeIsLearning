@@ -17,7 +17,7 @@
     </tr>
     <tr>
         <td>Socket Programming</td>    
-        <td>Not Started</td>    
+        <td>In Progress</td>    
         <td>https://beej.us/guide/bgnet/?</td>    
         <td>Chapter 6 for TCP server</td>    
     </tr>
