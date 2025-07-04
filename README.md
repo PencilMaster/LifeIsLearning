@@ -13,4 +13,4 @@ Learning more through personal projects here.
 1. Expand neovim using harpoon, fuzzyfinder and more.
 2. Create Http Server
 3. Program already owned FPGA anew. Think of use cases.
-
+4. Install and integrate tmux with nvim. Use and learn it.
