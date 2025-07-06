@@ -1,5 +1,7 @@
 # LifeIsLearning
-Profficient at general C, C++ and Java. Learning more through personal projects here.
+
+Profficient at C, C++ and Java. Good at Python and VHDL.
+Learning more through personal projects here.
 
 1. Everything committed will be written and tested on Ubuntu Inside a VM
 2. None of the code I write is generated. There are many reasons why, happy to elaborate if wanted.
@@ -8,8 +10,7 @@ Profficient at general C, C++ and Java. Learning more through personal projects 
 
 # ========== IDEAS ==========
 
-                                                     ____
-1. Create nvim shortcut that creates little box with |  |. 
-                                                     |__|
-Difficult that it changes size with written text within. Triggers on keystrokes inside, 
-check if possible with row/col detection and tempfile that holds metadata "BoxObjects" that is updated during editing 
+1. Expand neovim using harpoon, fuzzyfinder and more.
+2. Create Http Server
+3. Program already owned FPGA anew. Think of use cases.
+4. Install and integrate tmux with nvim. Use and learn it.
