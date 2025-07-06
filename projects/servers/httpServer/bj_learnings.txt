@@ -1,0 +1,8 @@
+This will be changed to a .tex file in the future
+
+1. Main sockets needed by us are: 
+      "SOCK_STREAM" (they use Transmission Control Protocol (TCP) : these sockets are used by ssh and telnet, also http) 
+      "SOCK_DGRAM" (they use User Datagram Protocol (UDP) : very unsafe and used by tftp and dhcpcd, those add their own protocols on top)
+2. Internet Protocol(IP): Infortmation is in (RFC 791)
+3. IPv4 and IPv6:
+4. 
