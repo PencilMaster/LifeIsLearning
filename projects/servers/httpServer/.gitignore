@@ -1,0 +1,6 @@
+# We alraedy ignore everything needed for now. I will make sure to ignore any specific files here as well for completeness sake.
+
+*.o
+*.out
+
+*.DS_Store
