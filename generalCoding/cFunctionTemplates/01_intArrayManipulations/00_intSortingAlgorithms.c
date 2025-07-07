@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-static inline void swap(int* const a, int* const b) {
+static inline void swap_int(int* const a, int* const b) {
     int tmp = *a;
     *a = *b;
     *b = tmp;
@@ -16,12 +16,12 @@ void quickSortInt(int* intArray, const size_t intArraySize) {
     int pivot = intArraySize - 1;
     size_t l = 0;
     for (size_t r = 0; r < pivot; ++r) {
-        if (intArray[r] < intArray[pivot]) swap(intArray+(l++), intArray+r);
+        if (intArray[r] < intArray[pivot]) swap_int(intArray+(l++), intArray+r);
     }
-    swap(intArray+l, intArray+pivot);
+    swap_int(intArray+l, intArray+pivot);
 
     quickSortInt(intArray, (size_t)l); // left 
-    quickSortInt(intArray+l+1, (size_t)(intArraySize-l-1)); // right, does it need to know if swap occurred? don't think so
+    quickSortInt(intArray+l+1, (size_t)(intArraySize-l-1)); // right, does it need to know if swap_int occurred? don't think so
     return;
 }
 
