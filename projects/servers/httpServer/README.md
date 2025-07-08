@@ -22,6 +22,3 @@
         <td>Chapter 6 for TCP server</td>    
     </tr>
 </table>
-
-
-
