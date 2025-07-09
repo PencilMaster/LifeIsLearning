@@ -36,8 +36,8 @@ typedef struct AVLNode {
  * 1. AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* node); -- DONE
  * 2. void avlInsert(AVLNode* node, int key, int value);
  * 3. void avlUpdate(AVLNode* node, int key, int value);
- * 4. int avlFind(AVLNode* node, int key);                     // This returns value from key:value pair
- * 5. AVLNode* avlFindNode(AVLNode* node, int key);
+ * 4. int avlFind(AVLNode* node, int key);                              -- DONE 
+ * 5. AVLNode* avlFindNode(AVLNode* node, int key);                     -- DONE
  *
  *  --- Delete functions ---
  * 1. void avlDelete(AVLNode* node, int key);
@@ -79,8 +79,11 @@ AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
     return newNode;
 }
 
-int avlFind(AVLNode* node, int key) { 
-    return (avlFindNode(node, key))->keyStruct->value;
+//  If key cannot be found, we return value "-1"
+int avlFind(AVLNode* node, int key) {
+    AVLNode* temp = avlFindNode(node, key);
+    if (temp == NULL) return -1;
+    return temp->keyStruct->value;
 }
 
 AVLNode* avlFindNode(const AVLNode* node, int key) {
@@ -106,7 +109,10 @@ AVLNode* avlFindNode(const AVLNode* node, int key) {
     else return NULL;
 }
 
+void avlInsert(AVLNode* node, int key, int value) {
 
+    return;
+}
 
 
 
