@@ -109,9 +109,29 @@ AVLNode* avlFindNode(const AVLNode* node, int key) {
     else return NULL;
 }
 
-void avlInsert(AVLNode* node, int key, int value) {
+void avlInsert(const AVLNode* node, const int key, const int value) {
+    AVLNode* temp = node;
+    int difference = temp->keyStruct->key - key;
+    int loopStatus = 1;
 
-    return;
+    while (loopStatus) {
+        loopStatus = 0;
+        while (difference > 0 && temp->left != NULL) {
+            temp = temp->left;
+            difference = temp->keyStruct->key - key;
+            loopStatus = 1;
+        } 
+        while (difference < 0 && temp->right != NULL) {
+            temp = temp->right;
+            difference = temp->keyStruct->key - key;
+            loopStatus = 2;
+        } 
+    }
+
+    if (!(temp->keyStruct->key - key)) temp->keyStruct->value = value;
+    else if (difference > 0) {
+        temp->left = avlCreateNode((struct AVLKey){key, value}, temp);
+    }
 }
 
 
