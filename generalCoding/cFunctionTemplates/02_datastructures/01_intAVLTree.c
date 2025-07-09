@@ -1,3 +1,4 @@
+
 // I am currently implementing an AVL Tree in this file.
 // Work in Progress : 1/11 functions done.
 // -- Will split this into a .h file and a .c file.
@@ -35,6 +36,7 @@ typedef struct AVLNode {
  * 2. void avlInsert(AVLNode* node, int key, int value);
  * 3. void avlUpdate(AVLNode* node, int key, int value);
  * 4. int avlFind(AVLNode* node, int key);                     // This returns value from key:value pair
+ * 5. AVLNode* avlFindNode(AVLNode* node, int key);
  *
  *  --- Delete functions ---
  * 1. void avlDelete(AVLNode* node, int key);
@@ -79,3 +81,4 @@ AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
 int avlFind(AVLNode* node, int key) {
   
 }
+
