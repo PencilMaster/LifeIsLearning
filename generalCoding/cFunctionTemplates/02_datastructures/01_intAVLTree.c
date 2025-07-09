@@ -2,7 +2,8 @@
 // I am currently implementing an AVL Tree in this file.
 // Work in Progress : 1/11 functions done.
 // -- Will split this into a .h file and a .c file.
-//
+
+// TODO: CREATE HEADER WITH FUNCTION DECLARATIONS!
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -15,19 +16,19 @@
  * */
 
 typedef struct AVLKey {
-  int key;
-  int value;
+    int key;
+    int value;
 } AVLKey;
 
 typedef struct AVLNode {
-  AVLKey keyStruct;
+    AVLKey keyStruct;
   
-  int bf;
-  int height;
+    int bf;
+    int height;
 
-  AVLNode* parent;
-  AVLNode* left;
-  AVLNode* right;
+    AVLNode* parent;
+    AVLNode* left;
+    AVLNode* right;
 } AVLNode;
 
 /* We will have the following functions:
@@ -59,26 +60,53 @@ typedef struct AVLNode {
  *
  * */
 AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
-  AVLNode* newNode = malloc(sizeof(*newNode));
-  if (newNode == NULL) {
+    AVLNode* newNode = malloc(sizeof(*newNode));
+    if (newNode == NULL) {
     // Implement logging here or throw an exception;
     return NULL;
-  }
+    }:w
 
-  newNode->keyStruct->key = avlkey->key;
-  newNode->keyStruct->value = avlkey->value;
+    newNode->keyStruct->key = avlkey->key;
+    newNode->keyStruct->value = avlkey->value;
 
-  newNode->bf = 0;
-  newNode->height = 0;
+    newNode->bf = 0;
+    newNode->height = 0;
 
-  newNode->parent = parent;
-  newNode->left = NULL;
-  newNode->right = NULL;
+    newNode->parent = parent;
+    newNode->left = NULL;
+    newNode->right = NULL;
 
-  return newNode;
+    return newNode;
 }
 
-int avlFind(AVLNode* node, int key) {
-  
+int avlFind(AVLNode* node, int key) { 
+    return (avlFindNode(node, key))->keyStruct->value;
 }
+
+AVLNode* avlFindNode(const AVLNode* node, int key) {
+    AVLNode* temp = node;
+    int difference = temp->keyStruct->key - key;
+    int loopStatus = 1;
+
+    while (loopStatus) {
+        loopStatus = 0;
+        while (difference > 0 && temp->left != NULL) {
+            temp = temp->left;
+            difference = temp->keyStruct->key - key;
+            loopStatus = 1;
+        } 
+        while (difference < 0 && temp->right != NULL) {
+            temp = temp->right;
+            difference = temp->keyStruct->key - key;
+            loopStatus = 2;
+        } 
+    }
+
+    if (!(temp->keyStruct->key - key)) return temp;
+    else return NULL;
+}
+
+
+
+
 
