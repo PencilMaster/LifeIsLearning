@@ -151,18 +151,20 @@ int avlFind(AVLNode* node, int key) {
 // =============================================== BALANCE FUNCTIONS ===============================================
 
 void avlBalanceNN(AVLNode* node) {
-    assert(node->bf > -2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR GREATER THAN -2 ");    
+    assert(node->bf == -2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT -2 ");    
     assert(node->right->bf < 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT NEGATIVE");    
 
     AVLNode* temp = node->right;
     node->right = temp->left;
-    node->right->parent = node;
+    if (temp->right != NULL) node->right->parent = node;
     temp->left = node;
     temp->parent = node->parent;
     node->parent = temp;
 
+    //CAREFUL, CHECK IF  BF ACTUALLY ALWAYS GETS PUT TO 0, THIS HAPPENS WHEN NODE->RIGHT->BF WAS -1, WHICH IT SHOULD BE
+
     //TODO: adjust height and balance factor
-    node->bf = node->left->height - node->right->height;
+    node->bf = 0;
     --(node->height);
 
     //Temp height does not change
@@ -172,6 +174,29 @@ void avlBalanceNN(AVLNode* node) {
     //Since temp height does not change, we do not need to call balance on another node after this function
 }
 
+void avlBalancePP(AVLNode* node) {
+    assert(node->bf == 2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT 2 ");    
+    assert(node->left->bf > 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->LEFT BALANCE FACTOR NOT POSITIVE");    
+
+    AVLNode* temp = node->left;
+    node->left = temp->right;
+    if (temp->right != NULL) node->left->parent = node;
+    temp->right = node;
+    temp->parent = node->parent;
+    node->parent = temp;
+
+    //CAREFUL, CHECK IF  BF ACTUALLY ALWAYS GETS PUT TO 0, THIS HAPPENS WHEN NODE->LEFT->BF WAS 1, WHICH IT SHOULD BE
+
+    //TODO: adjust height and balance factor
+    node->bf = 0;
+    --(node->height);
+
+    //Temp height does not change
+    temp->bf = temp->left->height - temp->right->height;
+    
+    return;
+    //Since temp height does not change, we do not need to call balance on another node after this function
+}
 
 
 
