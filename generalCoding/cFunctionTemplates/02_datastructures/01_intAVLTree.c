@@ -34,13 +34,13 @@ typedef struct AVLNode {
 /* We will have the following functions:
  *
  * 1. AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* node); -- DONE
- * 2. void avlInsert(AVLNode* node, int key, int value);
- * 3. void avlUpdate(AVLNode* node, int key, int value);
+ * 2. void avlInsert(AVLNode* node, int key, int value);                -- DONE
+ * 3. void avlUpdate(AVLNode* node, int key, int value);                // Same as insert, delete this line
  * 4. int avlFind(AVLNode* node, int key);                              -- DONE 
  * 5. AVLNode* avlFindNode(AVLNode* node, int key);                     -- DONE
  *
  *  --- Delete functions ---
- * 1. void avlDelete(AVLNode* node, int key);
+ * 1. void avlDelete(AVLNode* node, int key); //depending on balance, let right->left or left->right element replace deleted.
  * 2. void avlFreeNode(AVLNode* node);
  *
  *  --- Balance functions ---
@@ -52,6 +52,7 @@ typedef struct AVLNode {
  * 
  * */
 
+// =============================================== MUTATE KEYSTRUCT ===============================================
 /* Expected Input: (AVLKey, AVLNode*);
  * 
  * Behaviour: 
@@ -62,9 +63,10 @@ typedef struct AVLNode {
 AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
     AVLNode* newNode = malloc(sizeof(*newNode));
     if (newNode == NULL) {
-    // Implement logging here or throw an exception;
-    return NULL;
-    }:w
+        assert(newNode != NULL && "FUNCTION: AVLCREATENODE ---- STOPPED ---- MALLOC FAILED") {
+        // Implement logging here or throw an exception;
+        return NULL;
+    }
 
     newNode->keyStruct->key = avlkey->key;
     newNode->keyStruct->value = avlkey->value;
@@ -78,6 +80,39 @@ AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
 
     return newNode;
 }
+
+void avlInsert(const AVLNode* node, const int key, const int value) {
+    AVLNode* temp = node;
+    int difference = temp->keyStruct->key - key;
+    int loopStatus = 1;
+
+    while (loopStatus) {
+        loopStatus = 0;
+        while (difference > 0 && temp->left != NULL) {
+            temp = temp->left;
+            difference = temp->keyStruct->key - key;
+            loopStatus = 1;
+        } 
+        while (difference < 0 && temp->right != NULL) {
+            temp = temp->right;
+            difference = temp->keyStruct->key - key;
+            loopStatus = 2;
+        } 
+    }
+
+    if (!(temp->keyStruct->key - key)) temp->keyStruct->value = value;
+    else if (difference > 0) {
+        assert(temp->left != NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE > 0 ---- TEMP->LEFT == NULL");
+        temp->left = avlCreateNode((struct AVLKey){key, value}, temp);
+    }
+    else if (difference < 0) {
+        assert(temp->right != NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE < 0 ---- TEMP->RIGHT == NULL");
+        temp->right = avlCreateNode((struct AVLKey){key, value}, temp);
+    }
+}
+
+
+// =============================================== FIND FUNCTIONS ===============================================
 
 //  If key cannot be found, we return value "-1"
 int avlFind(AVLNode* node, int key) {
@@ -109,30 +144,6 @@ AVLNode* avlFindNode(const AVLNode* node, int key) {
     else return NULL;
 }
 
-void avlInsert(const AVLNode* node, const int key, const int value) {
-    AVLNode* temp = node;
-    int difference = temp->keyStruct->key - key;
-    int loopStatus = 1;
-
-    while (loopStatus) {
-        loopStatus = 0;
-        while (difference > 0 && temp->left != NULL) {
-            temp = temp->left;
-            difference = temp->keyStruct->key - key;
-            loopStatus = 1;
-        } 
-        while (difference < 0 && temp->right != NULL) {
-            temp = temp->right;
-            difference = temp->keyStruct->key - key;
-            loopStatus = 2;
-        } 
-    }
-
-    if (!(temp->keyStruct->key - key)) temp->keyStruct->value = value;
-    else if (difference > 0) {
-        temp->left = avlCreateNode((struct AVLKey){key, value}, temp);
-    }
-}
 
 
 
