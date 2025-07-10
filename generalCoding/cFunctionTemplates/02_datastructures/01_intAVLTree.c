@@ -155,8 +155,21 @@ void avlBalanceNN(AVLNode* node) {
     assert(node->right->bf < 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT NEGATIVE");    
 
     AVLNode* temp = node->right;
-    node->
+    node->right = temp->left;
+    node->right->parent = node;
+    temp->left = node;
+    temp->parent = node->parent;
+    node->parent = temp;
 
+    //TODO: adjust height and balance factor
+    node->bf = node->left->height - node->right->height;
+    --(node->height);
+
+    //Temp height does not change
+    temp->bf = temp->left->height - temp->right->height;
+    
+    return;
+    //Since temp height does not change, we do not need to call balance on another node after this function
 }
 
 
