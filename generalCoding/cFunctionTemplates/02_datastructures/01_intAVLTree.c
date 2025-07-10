@@ -34,10 +34,10 @@ typedef struct AVLNode {
 /* We will have the following functions:
  *
  * 1. AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* node); -- DONE
- * 2. void avlInsert(AVLNode* node, int key, int value);                -- DONE
- * 3. void avlUpdate(AVLNode* node, int key, int value);                // Same as insert, delete this line
- * 4. int avlFind(AVLNode* node, int key);                              -- DONE 
- * 5. AVLNode* avlFindNode(AVLNode* node, int key);                     -- DONE
+ * 2. void avlInsert(AVLNode* node, int key, int value);                -- NEED TO UPDATE HEIGHTS AND BALANCE OF PARENTS IF HEIGHT CHANGED.
+ * 3. int avlFind(AVLNode* node, int key);                              -- DONE 
+ * 4. AVLNode* avlFindNode(AVLNode* node, int key);                     -- DONE
+ * 5. void avlUpdate
  *
  *  --- Delete functions ---
  * 1. void avlDelete(AVLNode* node, int key); //depending on balance, let right->left or left->right element replace deleted.
@@ -81,6 +81,8 @@ AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
     return newNode;
 }
 
+// TODO:
+    // 1. NEED TO UPDATE HEIGHTS AND BALANCE OF PARENTS IF HEIGHT CHANGED.
 void avlInsert(const AVLNode* node, const int key, const int value) {
     AVLNode* temp = node;
     int difference = temp->keyStruct->key - key;
@@ -114,12 +116,6 @@ void avlInsert(const AVLNode* node, const int key, const int value) {
 
 // =============================================== FIND FUNCTIONS ===============================================
 
-//  If key cannot be found, we return value "-1"
-int avlFind(AVLNode* node, int key) {
-    AVLNode* temp = avlFindNode(node, key);
-    if (temp == NULL) return -1;
-    return temp->keyStruct->value;
-}
 
 AVLNode* avlFindNode(const AVLNode* node, int key) {
     AVLNode* temp = node;
@@ -142,6 +138,25 @@ AVLNode* avlFindNode(const AVLNode* node, int key) {
 
     if (!(temp->keyStruct->key - key)) return temp;
     else return NULL;
+}
+
+//  If key cannot be found, we return value "-1"
+int avlFind(AVLNode* node, int key) {
+    AVLNode* temp = avlFindNode(node, key);
+    if (temp == NULL) return -1;
+    return temp->keyStruct->value;
+}
+
+
+// =============================================== BALANCE FUNCTIONS ===============================================
+
+void avlBalanceNN(AVLNode* node) {
+    assert(node->bf > -2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR GREATER THAN -2 ");    
+    assert(node->right->bf < 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT NEGATIVE");    
+
+    AVLNode* temp = node->right;
+    node->
+
 }
 
 
