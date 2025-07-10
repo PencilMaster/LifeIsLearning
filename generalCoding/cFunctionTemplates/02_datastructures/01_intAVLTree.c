@@ -151,8 +151,8 @@ int avlFind(AVLNode* node, int key) {
 // =============================================== BALANCE FUNCTIONS ===============================================
 
 void avlBalanceNN(AVLNode* node) {
-    assert(node->bf == -2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT -2 ");    
-    assert(node->right->bf < 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT NEGATIVE");    
+    assert(node && node->bf == -2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT -2 ");    
+    assert(node && node->right->bf < 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT NEGATIVE");    
 
     AVLNode* temp = node->right;
     node->right = temp->left;
@@ -175,12 +175,12 @@ void avlBalanceNN(AVLNode* node) {
 }
 
 void avlBalancePP(AVLNode* node) {
-    assert(node->bf == 2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT 2 ");    
-    assert(node->left->bf > 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->LEFT BALANCE FACTOR NOT POSITIVE");    
+    assert(node && node->bf == 2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT 2 ");    
+    assert(node && node->left->bf > 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->LEFT BALANCE FACTOR NOT POSITIVE");    
 
     AVLNode* temp = node->left;
     node->left = temp->right;
-    if (temp->right != NULL) node->left->parent = node;
+    if (temp->left != NULL) node->left->parent = node;
     temp->right = node;
     temp->parent = node->parent;
     node->parent = temp;
@@ -198,5 +198,29 @@ void avlBalancePP(AVLNode* node) {
     //Since temp height does not change, we do not need to call balance on another node after this function
 }
 
+void avlBalanceNP(AVLNode* node) {
+    assert(node->bf == -2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT -2 ");    
+    assert(node->right->bf > 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT POSITIVE");    
+
+    AVLNode* R = node->right;
+    AVLNode* RL = right->left;
+        
+    // First, small rotation to the right
+    R->left = RL->right;
+    if (R->left) R->left->parent = R;
+
+    RL->right = R;
+    R->parent = RL;
+
+    // Second, small rotation to the left
+    node->right = RL->left;
+    if (node->right) node->right->parent = node;
+
+    RL->left = node;
+    RL->parent = node->parent;
+    node->parent = RL;
+
+    // Adjust height and balance factor
 
 
+}
