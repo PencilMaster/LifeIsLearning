@@ -31,25 +31,25 @@ typedef struct AVLNode {
 } AVLNode;
 
 /* We will have the following functions:
- *
- * 1. AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* node);     -- DONE
- * 2. void avlInsert(AVLNode* node, int key, int value);                    -- DONE
- * 5. void avlUpdatePosition(AVLNode* node);                                -- DONE
+ *  --- Mutate keystruct ---
+ * 1. AVLNode* avlCreateTree(const AVLKey avlkey, const AVLNode* node);     -- CHANGE ARGUMENTS TO MORE USERFRIENDLY
+ * 2. AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* node);     -- DONE
+ * 3. void avlInsert(AVLNode* node, int key, int value);                    -- DONE
+ * 4. void avlUpdatePosition(AVLNode* node);                                -- DONE
  *
  *  --- Utility functions ---
  * 1. int avlGetHeight(AVLNode* node); // if node == NULL return 0          -- DONE
  * 2. int avlGetValue(AVLNode* node, int key);                              -- DONE
  * 
  *  --- Delete functions ---
- * 1. void avlDelete(AVLNode* node, int key);
- * 2. void avlFreeNode(AVLNode* node);
+ * 1. void avlDelete(AVLNode* node, int key);                               --
+ * 2. void avlFreeNode(AVLNode* node);                                      --
  *
  *  --- Balance functions ---
- * 1. void avlRestoreBalance(AVLNode* node); // If currentNode->bf changes. This function is called.
- * 2. void avlBalanceNN(AVLNode* node);                                 -- DONE
- * 3. void avlBalanceNP(AVLNode* node);                                 -- DONE
- * 4. void avlBalancePP(AVLNode* node);                                 -- DONE
- * 5. void avlBalancePN(AVLNode* node);                                 -- DONE
+ * 2. void avlBalanceNN(AVLNode* node);                                     -- DONE
+ * 3. void avlBalanceNP(AVLNode* node);                                     -- DONE
+ * 4. void avlBalancePP(AVLNode* node);                                     -- DONE
+ * 5. void avlBalancePN(AVLNode* node);                                     -- DONE
  * 
  * */
 
@@ -105,13 +105,29 @@ void avlInsert(const AVLNode* node, const int key, const int value) {
 
     if (!(temp->keyStruct->key - key)) temp->keyStruct->value = value;
     else if (difference > 0) {
-        assert(temp->left != NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE > 0 ---- TEMP->LEFT == NULL");
+        assert(temp->left -= NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE > 0 ---- TEMP->LEFT != NULL");
         temp->left = avlCreateNode((struct AVLKey){key, value}, temp);
     }
     else if (difference < 0) {
-        assert(temp->right != NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE < 0 ---- TEMP->RIGHT == NULL");
+        assert(temp->right == NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE < 0 ---- TEMP->RIGHT != NULL");
         temp->right = avlCreateNode((struct AVLKey){key, value}, temp);
     }
+
+    // TODO - Update all predecessors and rebalance if necessary
+    do {
+        avlUpdatePosition(temp);
+        if (temp->bf == 2) {
+            if (temp->left->bf < 0) avlBalancePN(temp);
+            else avlBalancePP(temp);
+        };
+        else if (temp->bf == -2) {
+            if (temp->left->bf < 0) avlBalanceNN(temp);
+            else avlBalanceNP(temp);
+        }
+        temp = temp->parent;
+    } while (temp);
+    
+    return;
 }
 
 // Maybe write an inline version of this. WARNING: Use inline functions only in file where it is defined (translation unit).
@@ -130,6 +146,13 @@ void avlUpdatePosition(AVLNode* node) {
 int avlGetHeight(AVLNode* node) {
     if(!node) return 0;
     return node->height;
+}
+
+//  If key cannot be found, we return value "-1"
+int avlGetValue(AVLNode* node, int key) {
+    AVLNode* temp = avlFindNode(node, key);
+    if (temp == NULL) return -1;
+    return temp->keyStruct->value;
 }
 
 // =============================================== FIND FUNCTIONS ===============================================
@@ -158,14 +181,6 @@ AVLNode* avlFindNode(const AVLNode* node, int key) {
     else return NULL;
 }
 
-//  If key cannot be found, we return value "-1"
-int avlGetValue(AVLNode* node, int key) {
-    AVLNode* temp = avlFindNode(node, key);
-    if (temp == NULL) return -1;
-    return temp->keyStruct->value;
-}
-
-
 // =============================================== BALANCE FUNCTIONS ===============================================
 
 void avlBalanceNN(AVLNode* node) {
@@ -182,12 +197,9 @@ void avlBalanceNN(AVLNode* node) {
     //CAREFUL, CHECK IF  BF ACTUALLY ALWAYS GETS PUT TO 0, THIS HAPPENS WHEN NODE->RIGHT->BF WAS -1, WHICH IT SHOULD BE
 
     //TODO: adjust height and balance factor
-    node->bf = 0;
-    --(node->height);
+    avlUpdatePosition(node);
+    avlUpdatePosition(temp);
 
-    //Temp height does not change
-    temp->bf = temp->left->height - temp->right->height;
-    
     return;
     //Since temp height does not change, we do not need to call balance on another node after this function
 }
@@ -206,12 +218,9 @@ void avlBalancePP(AVLNode* node) {
     //CAREFUL, CHECK IF  BF ACTUALLY ALWAYS GETS PUT TO 0, THIS HAPPENS WHEN NODE->LEFT->BF WAS 1, WHICH IT SHOULD BE
 
     //TODO: adjust height and balance factor
-    node->bf = 0;
-    --(node->height);
+    avlUpdatePosition(node);
+    avlUpdatePosition(temp);
 
-    //Temp height does not change
-    temp->bf = temp->left->height - temp->right->height;
-    
     return;
     //Since temp height does not change, we do not need to call balance on another node after this function
 }
@@ -241,10 +250,8 @@ void avlBalanceNP(AVLNode* node) {
     // Adjust height and balance factor
     avlUpdatePosition(node);
     avlUpdatePosition(R);
-    // RL always changes this way
-    ++(RL->height);
-    RL->bf = 0;
-
+    avlUpdatePosition(RL);
+    
     return;
 }
 
@@ -273,9 +280,7 @@ void avlBalancePN(AVLNode* node) {
     // Adjust height and balance factor
     avlUpdatePosition(node);
     avlUpdatePosition(L);
-    // LR always changes this way
-    ++(LR->height);
-    LR->bf = 0;
+    avlUpdatePosition(LR);
 
     return;
 }
