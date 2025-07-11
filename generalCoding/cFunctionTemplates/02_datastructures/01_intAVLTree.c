@@ -203,7 +203,7 @@ void avlBalanceNP(AVLNode* node) {
     assert(node->right->bf > 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT POSITIVE");    
 
     AVLNode* R = node->right;
-    AVLNode* RL = right->left;
+    AVLNode* RL = R->left;
         
     // First, small rotation to the right
     R->left = RL->right;
@@ -219,6 +219,33 @@ void avlBalanceNP(AVLNode* node) {
     RL->left = node;
     RL->parent = node->parent;
     node->parent = RL;
+
+    // Adjust height and balance factor
+
+
+}
+
+void avlBalancePN(AVLNode* node) {
+    assert(node->bf == 2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT 2 ");    
+    assert(node->left->bf < 0 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT NEGATIVE");    
+
+    AVLNode* L = node->left;
+    AVLNode* LR = L->right;
+        
+    // First, small rotation to the left 
+    L->right = LR->left;
+    if (L->right) L->right->parent = L;
+
+    LR->left = L;
+    L->parent = LR;
+
+    // Second, small rotation to the left
+    node->left = LR->right;
+    if (node->left) node->left->parent = node;
+
+    LR->right = node;
+    LR->parent = node->parent;
+    node->parent = LR;
 
     // Adjust height and balance factor
 
