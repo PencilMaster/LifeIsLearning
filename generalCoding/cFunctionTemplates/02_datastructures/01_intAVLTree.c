@@ -168,7 +168,7 @@ int avlDeleteNode(AVLNode* node) {
     assert(node && "Key that is to be deleted, does not exist in tree");
     int returnVal = node->keyStruct->value;
 
-    // TODO - WRITE DELETE LOGIC
+    // TODO - WRITE DELETE LOGIC (swap Node with follower on side with highest bf)
     
     // TODO - FREE NODE
 
@@ -176,6 +176,13 @@ int avlDeleteNode(AVLNode* node) {
 }
 
 void avlFreeNode(AVLNode* node) {
+    if (node->parent && node->keyStruct->key > node->parent->keyStruct->key) {
+        node->parent->right = NULL;
+    }
+    else if (node->parent && node->keyStruct->key < node->parent->keyStruct->key) {
+        node->parent->left = NULL;
+    }
+
     free(node);
     return;
 }
