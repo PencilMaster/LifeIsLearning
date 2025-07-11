@@ -1,4 +1,3 @@
-
 // I am currently implementing an AVL Tree in this file.
 // Work in Progress : 1/11 functions done.
 // -- Will split this into a .h file and a .c file.
@@ -16,31 +15,30 @@
  * */
 
 typedef struct AVLKey {
-    int key;
-    int value;
+  int key;
+  int value;
 } AVLKey;
 
 typedef struct AVLNode {
-    AVLKey keyStruct;
+  AVLKey keyStruct;
   
-    int bf;
-    int height;
+  int bf;
+  int height;
 
-    AVLNode* parent;
-    AVLNode* left;
-    AVLNode* right;
+  AVLNode* parent;
+  AVLNode* left;
+  AVLNode* right;
 } AVLNode;
 
 /* We will have the following functions:
  *
  * 1. AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* node); -- DONE
- * 2. void avlInsert(AVLNode* node, int key, int value);                -- NEED TO UPDATE HEIGHTS AND BALANCE OF PARENTS IF HEIGHT CHANGED.
- * 3. int avlFind(AVLNode* node, int key);                              -- DONE 
- * 4. AVLNode* avlFindNode(AVLNode* node, int key);                     -- DONE
- * 5. void avlUpdate
+ * 2. void avlInsert(AVLNode* node, int key, int value);
+ * 3. void avlUpdate(AVLNode* node, int key, int value);
+ * 4. int avlFind(AVLNode* node, int key);                     // This returns value from key:value pair
  *
  *  --- Delete functions ---
- * 1. void avlDelete(AVLNode* node, int key); //depending on balance, let right->left or left->right element replace deleted.
+ * 1. void avlDelete(AVLNode* node, int key);
  * 2. void avlFreeNode(AVLNode* node);
  *
  *  --- Balance functions ---
@@ -248,6 +246,5 @@ void avlBalancePN(AVLNode* node) {
     node->parent = LR;
 
     // Adjust height and balance factor
-
 
 }
