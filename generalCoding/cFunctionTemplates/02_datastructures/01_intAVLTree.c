@@ -44,7 +44,7 @@ typedef struct AVLNode {
  * 
  *  --- Delete functions ---
  * 1. int avlDeleteKey(AVLNode* node, const int key);                       -- DONE
- * 2. int avlDeleteNode(AVLNode* node, int key);                            --
+ * 2. int avlDeleteNode(AVLNode* node, int key);                            -- DONE
  * 3. void avlFreeNode(AVLNode* node);                                      -- DONE
  *
  *  --- Find functions ---
@@ -168,20 +168,49 @@ int avlDeleteNode(AVLNode* node) {
     assert(node && "Key that is to be deleted, does not exist in tree");
     int returnVal = node->keyStruct->value;
 
-    // TODO - WRITE DELETE LOGIC (swap Node with follower on side with highest bf)
+    bool state = (node->bf > 0 ? 1 : 0);
+    AVLNode* iterator;
+    if (state) iterator = node->left;
+    else iterator = node->right;
+
+    while (state && iterator->right != NULL) iterator = iterator->right;
+    while (!state && iterator->left != NULL) iterator = iterator->left;
+
+    AVLNode* tempP = iterator->parent;
+    AVLNode* tempC = (state ? iterator->left : iterator->right);
+
+    iterator->right = node->right;
+    iterator->left = node->left;
+    iterator->parent = node->parent;
+
+    if (state) tempP->right = tempC;
+    else tempP->left = tempC;
     
-    // TODO - FREE NODE
+    do { 
+        avlUpdatePosition(tempP);
+        if (tempP->bf == 2) {
+            if (tempP->left->bf < 0) avlBalancePN(tempP);
+            else avlBalancePP(tempP);
+        }
+        else if (tempP->bf == -2) {
+            if (tempP->left->bf < 0) avlBalanceNN(tempP);
+            else avlBalanceNP(tempP);
+        }
+        tempP = tempP->parent;
+    } while (tempP);
+
+    avlFreeNode(node);
 
     return returnVal;
 }
 
 void avlFreeNode(AVLNode* node) {
-    if (node->parent && node->keyStruct->key > node->parent->keyStruct->key) {
-        node->parent->right = NULL;
-    }
-    else if (node->parent && node->keyStruct->key < node->parent->keyStruct->key) {
-        node->parent->left = NULL;
-    }
+    //if (node->parent && node->keyStruct->key > node->parent->keyStruct->key) {
+    //    node->parent->right = NULL;
+    //}
+    //else if (node->parent && node->keyStruct->key < node->parent->keyStruct->key) {
+    //    node->parent->left = NULL;
+    //}
 
     free(node);
     return;
