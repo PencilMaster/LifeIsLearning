@@ -31,9 +31,11 @@ typedef struct AVLNode {
   AVLNode* right;
 } AVLNode;
 
+typedef struct AVLNode AVLTree;
+
 /* We will have the following functions:
  *  --- Mutate keystruct ---
- * 1. AVLNode* avlCreateTree(const AVLKey avlkey, const AVLNode* node);     -- CHANGE ARGUMENTS TO MORE USERFRIENDLY
+ * 1. AVLTree* avlCreateTree(const int key, const int value);               -- DONE
  * 2. AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* node);     -- DONE
  * 3. void avlInsert(AVLNode* node, int key, int value);                    -- DONE
  * 4. void avlUpdatePosition(AVLNode* node);                                -- DONE
@@ -66,6 +68,10 @@ typedef struct AVLNode {
  * 2. Sets its avlkey and parent to function arguments.
  *
  * */
+AVLTree* avlCreateTree(const int key, const int value) {
+    return avlCreateNode((struct AVLKey){key, value}, NULL);
+}
+
 AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
     AVLNode* newNode = malloc(sizeof(*newNode));
     if (newNode == NULL) {
