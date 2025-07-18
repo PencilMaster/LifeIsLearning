@@ -5,6 +5,7 @@
 // TODO - CREATE HEADER WITH FUNCTION DECLARATIONS!
 // TODO - CREATE PYTHON TESTSCRIPT FOR EACH FUNCTION!
 
+#include "intAVLTree.h"
 #include <stdlib.h>
 #include <stdbool.h>
 #include <assert.h>
