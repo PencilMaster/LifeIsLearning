@@ -45,5 +45,7 @@ long long minimumDifference(int* nums, int numsSize) {
         }
     } 
 
-    return dp[n];
+    int result = dp[n];
+    free(dp);
+    return result;
 }
