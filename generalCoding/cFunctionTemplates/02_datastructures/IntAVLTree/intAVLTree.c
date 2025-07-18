@@ -32,7 +32,7 @@ typedef struct AVLNode {
   AVLNode* right;
 } AVLNode;
 
-typedef struct AVLNode AVLTree;
+// typedef struct AVLNode AVLTree; -- This is contained in header file and should not be necessary here.
 
 /* We will have the following functions:
  *  --- Mutate keystruct ---
