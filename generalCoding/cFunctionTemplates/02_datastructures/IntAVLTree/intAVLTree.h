@@ -27,7 +27,7 @@ typedef struct AVLNode AVLTree;
 AVLTree* avlCreateTree(const int key, const int value); 
 AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent); 
 
-void avlInsert(const AVLNode* node, const int key, const int value);
+AVLNode* avlInsert(const AVLNode* node, const int key, const int value);
 void avlUpdatePosition(AVLNode* node);
 
 int avlGetHeight(AVLNode* node);

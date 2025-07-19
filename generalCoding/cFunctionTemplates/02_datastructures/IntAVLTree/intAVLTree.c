@@ -35,6 +35,11 @@
 // typedef struct AVLNode AVLTree; -- This is contained in header file and should not be necessary here.
 
 /* We will have the following functions:
+ *
+ * Might want to add:
+ * 1. avlGetSize() -- returns amount of elements inside, can be used to create new tree if size is 0.
+ * 2. avlFreeTree() -- frees entire tree from root node.
+ *
  *  --- Mutate keystruct ---
  * 1. AVLTree* avlCreateTree(const int key, const int value);               -- DONE
  * 2. AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* node);     -- DONE
@@ -93,8 +98,10 @@ AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
     return newNode;
 }
 
-void avlInsert(const AVLNode* node, const int key, const int value) {
+AVLNode* avlInsert(const AVLNode* node, const int key, const int value) {
     AVLNode* temp = node;
+    if (temp == NULL) return avlCreateNode((struct AVLKey){key, value}, NULL);
+
     int difference = temp->keyStruct.key - key;
     int loopStatus = 1;
 
@@ -112,14 +119,17 @@ void avlInsert(const AVLNode* node, const int key, const int value) {
         } 
     }
 
+    AVLNode* returnNode = NULL;
     if (!(temp->keyStruct.key - key)) temp->keyStruct.value = value;
     else if (difference > 0) {
-        assert(temp->left -= NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE > 0 ---- TEMP->LEFT != NULL");
+        assert(temp->left == NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE > 0 ---- TEMP->LEFT != NULL");
         temp->left = avlCreateNode((struct AVLKey){key, value}, temp);
+        returnNode = temp->left;
     }
     else if (difference < 0) {
         assert(temp->right == NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE < 0 ---- TEMP->RIGHT != NULL");
         temp->right = avlCreateNode((struct AVLKey){key, value}, temp);
+        returnNode = temp->right;
     }
 
     do {
@@ -135,7 +145,7 @@ void avlInsert(const AVLNode* node, const int key, const int value) {
         temp = temp->parent;
     } while (temp);
     
-    return;
+    return returnNode;
 }
 
 // Maybe write an inline version of this. WARNING: Use inline functions only in file where it is defined (translation unit).
