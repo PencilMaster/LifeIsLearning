@@ -5,6 +5,21 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+typedef struct AVLKey {
+    int key;
+    int value;
+}   AVLKey;
+
+typedef struct AVLNode {
+    AVLKey keyStruct;
+    
+    int bf;
+    int height;
+
+    struct AVLNode* parent;
+    struct AVLNode* left;
+    struct AVLNode* right;
+}   AVLNode;
 
 typedef struct AVLNode AVLTree;
 

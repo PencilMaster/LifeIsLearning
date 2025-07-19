@@ -16,21 +16,21 @@
  * Node Struct contains ptrs: {Node* parent, Node* left, Node* right}
  * */
 
-typedef struct AVLKey {
-  int key;
-  int value;
-} AVLKey;
-
-typedef struct AVLNode {
-  AVLKey keyStruct;
-  
-  int bf;
-  int height;
-
-  AVLNode* parent;
-  AVLNode* left;
-  AVLNode* right;
-} AVLNode;
+// typedef struct AVLKey {
+//   int key;
+//   int value;
+// } AVLKey;
+// 
+// typedef struct AVLNode {
+//   AVLKey keyStruct;
+//   
+//   int bf;
+//   int height;
+// 
+//   AVLNode* parent;
+//   AVLNode* left;
+//   AVLNode* right;
+// } AVLNode;
 
 // typedef struct AVLNode AVLTree; -- This is contained in header file and should not be necessary here.
 
@@ -76,13 +76,12 @@ AVLTree* avlCreateTree(const int key, const int value) {
 AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
     AVLNode* newNode = malloc(sizeof(*newNode));
     if (newNode == NULL) {
-        assert(newNode != NULL && "FUNCTION: AVLCREATENODE ---- STOPPED ---- MALLOC FAILED") {
+        assert(newNode != NULL && "FUNCTION: AVLCREATENODE ---- STOPPED ---- MALLOC FAILED");
         // Implement logging here or throw an exception;
-        return NULL;
     }
 
-    newNode->keyStruct->key = avlkey->key;
-    newNode->keyStruct->value = avlkey->value;
+    newNode->keyStruct.key = avlkey.key;
+    newNode->keyStruct.value = avlkey.value;
 
     newNode->bf = 0;
     newNode->height = 1;
@@ -96,24 +95,24 @@ AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
 
 void avlInsert(const AVLNode* node, const int key, const int value) {
     AVLNode* temp = node;
-    int difference = temp->keyStruct->key - key;
+    int difference = temp->keyStruct.key - key;
     int loopStatus = 1;
 
     while (loopStatus) {
         loopStatus = 0;
         while (difference > 0 && temp->left != NULL) {
             temp = temp->left;
-            difference = temp->keyStruct->key - key;
+            difference = temp->keyStruct.key - key;
             loopStatus = 1;
         } 
         while (difference < 0 && temp->right != NULL) {
             temp = temp->right;
-            difference = temp->keyStruct->key - key;
+            difference = temp->keyStruct.key - key;
             loopStatus = 2;
         } 
     }
 
-    if (!(temp->keyStruct->key - key)) temp->keyStruct->value = value;
+    if (!(temp->keyStruct.key - key)) temp->keyStruct.value = value;
     else if (difference > 0) {
         assert(temp->left -= NULL && "FUNCTION: AVLINSERT ---- STOPPED ---- DIFFERENCE > 0 ---- TEMP->LEFT != NULL");
         temp->left = avlCreateNode((struct AVLKey){key, value}, temp);
@@ -162,18 +161,18 @@ int avlGetHeight(AVLNode* node) {
 int avlGetValue(AVLNode* node, int key) {
     AVLNode* temp = avlFindNode(node, key);
     assert(temp != NULL && "FUNCTION: AVLGETVALUE ---- STOPPED ---- key cannot be found");
-    return temp->keyStruct->value;
+    return temp->keyStruct.value;
 }
 
 // =============================================== DELETE FUNCTIONS ===============================================
 
 int avlDeleteKey(AVLNode* node, const int key) {
-    return avlDeleteNode((avlFindNode(node, key));
+    return avlDeleteNode(avlFindNode(node, key));
 }
 
 int avlDeleteNode(AVLNode* node) {
     assert(node && "Key that is to be deleted, does not exist in tree");
-    int returnVal = node->keyStruct->value;
+    int returnVal = node->keyStruct.value;
 
     bool state = (node->bf > 0 ? 1 : 0);
     AVLNode* iterator;
@@ -212,10 +211,10 @@ int avlDeleteNode(AVLNode* node) {
 }
 
 void avlFreeNode(AVLNode* node) {
-    //if (node->parent && node->keyStruct->key > node->parent->keyStruct->key) {
+    //if (node->parent && node->keyStruct.key > node->parent->keyStruct.key) {
     //    node->parent->right = NULL;
     //}
-    //else if (node->parent && node->keyStruct->key < node->parent->keyStruct->key) {
+    //else if (node->parent && node->keyStruct.key < node->parent->keyStruct.key) {
     //    node->parent->left = NULL;
     //}
 
@@ -228,24 +227,24 @@ void avlFreeNode(AVLNode* node) {
 
 AVLNode* avlFindNode(const AVLNode* node, const int key) {
     AVLNode* temp = node;
-    int difference = temp->keyStruct->key - key;
+    int difference = temp->keyStruct.key - key;
     int loopStatus = 1;
 
     while (loopStatus) {
         loopStatus = 0;
         while (difference > 0 && temp->left != NULL) {
             temp = temp->left;
-            difference = temp->keyStruct->key - key;
+            difference = temp->keyStruct.key - key;
             loopStatus = 1;
         } 
         while (difference < 0 && temp->right != NULL) {
             temp = temp->right;
-            difference = temp->keyStruct->key - key;
+            difference = temp->keyStruct.key - key;
             loopStatus = 2;
         } 
     }
 
-    if (!(temp->keyStruct->key - key)) return temp;
+    if (!(temp->keyStruct.key - key)) return temp;
     else return NULL;
 }
 
