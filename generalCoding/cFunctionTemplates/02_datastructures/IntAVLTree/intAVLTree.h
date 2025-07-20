@@ -36,6 +36,7 @@ int avlDeleteKey(AVLNode* node, const int key);
 int avlDeleteNode(AVLNode* node);
 
 void avlFreeNode(AVLNode* node);
+bool avlFreeTree(AVLNode* root);
 AVLNode* avlFindNode(const AVLNode* node, const int key);
 
 void avlBalanceNN(AVLNode* node);

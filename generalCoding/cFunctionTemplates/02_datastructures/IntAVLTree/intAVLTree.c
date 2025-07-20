@@ -74,11 +74,13 @@
  * 2. Sets its avlkey and parent to function arguments.
  *
  * */
-AVLTree* avlCreateTree(const int key, const int value) {
+AVLTree* avlCreateTree(const int key, const int value) 
+{
     return avlCreateNode((struct AVLKey){key, value}, NULL);
 }
 
-AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
+AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) 
+{
     AVLNode* newNode = malloc(sizeof(*newNode));
     if (newNode == NULL) {
         assert(newNode != NULL && "FUNCTION: AVLCREATENODE ---- STOPPED ---- MALLOC FAILED");
@@ -98,7 +100,8 @@ AVLNode* avlCreateNode(const AVLKey avlkey, const AVLNode* parent) {
     return newNode;
 }
 
-AVLNode* avlInsert(const AVLNode* node, const int key, const int value) {
+AVLNode* avlInsert(const AVLNode* node, const int key, const int value) 
+{
     AVLNode* temp = node;
     if (temp == NULL) return avlCreateNode((struct AVLKey){key, value}, NULL);
 
@@ -149,7 +152,8 @@ AVLNode* avlInsert(const AVLNode* node, const int key, const int value) {
 }
 
 // Maybe write an inline version of this. WARNING: Use inline functions only in file where it is defined (translation unit).
-void avlUpdatePosition(AVLNode* node) {
+void avlUpdatePosition(AVLNode* node) 
+{
     if (!node) return;
     int lHeight = avlGetHeight(node->left);
     int rHeight = avlGetHeight(node->right);
@@ -161,26 +165,44 @@ void avlUpdatePosition(AVLNode* node) {
 
 // =============================================== UTILITY FUNCTIONS ===============================================
 
-int avlGetHeight(AVLNode* node) {
+int avlGetHeight(AVLNode* node) 
+{
     if(!node) return 0;
     return node->height;
 }
 
 //  If key cannot be found, we return value "-1"
 //  TODO - WRITE A LOG MESSAGE IF THE KEY CANNOT BE FOUND, INTO A LOG-FILE
-int avlGetValue(AVLNode* node, int key) {
+int avlGetValue(AVLNode* node, int key) 
+{
     AVLNode* temp = avlFindNode(node, key);
     assert(temp != NULL && "FUNCTION: AVLGETVALUE ---- STOPPED ---- key cannot be found");
     return temp->keyStruct.value;
 }
 
+void avlPrintTree(const AVLTree* root) 
+{
+    
+    while (root->left || root->right) {
+        while (temp->left) temp = temp->left;
+        printf("Key:Value %d:%d", temp->key, temp->value);
+        if (temp->right) {
+            temp = temp->right;
+            printf("Key:Value %d:%d", temp->key, temp->value);
+        }
+
+    }
+}
+
 // =============================================== DELETE FUNCTIONS ===============================================
 
-int avlDeleteKey(AVLNode* node, const int key) {
+int avlDeleteKey(AVLNode* node, const int key) 
+{
     return avlDeleteNode(avlFindNode(node, key));
 }
 
-int avlDeleteNode(AVLNode* node) {
+int avlDeleteNode(AVLNode* node) 
+{
     assert(node && "Key that is to be deleted, does not exist in tree");
     int returnVal = node->keyStruct.value;
 
@@ -220,32 +242,30 @@ int avlDeleteNode(AVLNode* node) {
     return returnVal;
 }
 
-void avlFreeNode(AVLNode* node) {
+void avlFreeNode(AVLNode* node) 
+{
     free(node);
     return;
 }
 
-bool avlFreeTree(AVLNode* root) {
+bool avlFreeTree(AVLNode* root) 
+{
     assert(root != NULL && "FUNCTION: AVLFREETREE ---- STOPPED ---- ROOT == NULL");
     AVLNode* temp = root;
-    AVLNode* rLeft = root->left;
-    AVLNode* rRight = root->right;
 
-    while (rLeft || rRight) {
+    while (root->left || root->right) {
         while (temp->left) temp = temp->left;
         if (temp->right) temp = temp->right;
         else {
-            toDel = temp;
+            AVLNode* toDel = temp;
             temp = temp->parent;
             avlFreeNode(toDel);
-            if (temp && temp->left) temp->left = NULL;
-            else if (temp) temp->right = NULL;
+            if (temp->left) temp->left = NULL;
+            else temp->right = NULL;
         }
     }
 
     avlFreeNode(root);
-    assert(root == NULL && "FUNCTION: AVLFREETREE --- STOPPED --- FREED ROOT IS NOT NULL");
-    
     return 1;
 }
 
@@ -253,7 +273,8 @@ bool avlFreeTree(AVLNode* root) {
 // =============================================== FIND FUNCTIONS ===============================================
 
 
-AVLNode* avlFindNode(const AVLNode* node, const int key) {
+AVLNode* avlFindNode(const AVLNode* node, const int key) 
+{
     AVLNode* temp = node;
     int difference = temp->keyStruct.key - key;
     int loopStatus = 1;
@@ -278,7 +299,8 @@ AVLNode* avlFindNode(const AVLNode* node, const int key) {
 
 // =============================================== BALANCE FUNCTIONS ===============================================
 
-void avlBalanceNN(AVLNode* node) {
+void avlBalanceNN(AVLNode* node) 
+{
     assert(node && node->bf == -2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT -2 ");    
     assert(node && !(node->right->bf > 0) && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT 0 OR NEGATIVE");    
 
@@ -295,7 +317,8 @@ void avlBalanceNN(AVLNode* node) {
     return;
 }
 
-void avlBalancePP(AVLNode* node) {
+void avlBalancePP(AVLNode* node) 
+{
     assert(node && node->bf == 2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT 2 ");    
     assert(node && !(node->right->bf < 0) && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->LEFT BALANCE FACTOR NOT 0 OR POSITIVE");    
 
@@ -312,7 +335,8 @@ void avlBalancePP(AVLNode* node) {
     return;
 }
 
-void avlBalanceNP(AVLNode* node) {
+void avlBalanceNP(AVLNode* node) 
+{
     assert(node->bf == -2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT -2 ");    
     assert(node->right->bf == 1 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT POSITIVE");    
 
@@ -342,7 +366,8 @@ void avlBalanceNP(AVLNode* node) {
     return;
 }
 
-void avlBalancePN(AVLNode* node) {
+void avlBalancePN(AVLNode* node) 
+{
     assert(node->bf == 2 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- BALANCE FACTOR IS NOT 2 ");    
     assert(node->left->bf == -1 && "FUNCTION: AVLBALANCENN ---- STOPPED ---- NODE->RIGHT BALANCE FACTOR NOT NEGATIVE");    
 
@@ -371,3 +396,4 @@ void avlBalancePN(AVLNode* node) {
 
     return;
 }
+

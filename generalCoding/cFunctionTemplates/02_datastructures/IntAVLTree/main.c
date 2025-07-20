@@ -13,6 +13,9 @@ int main (int argc, char** argv) {
         avlInsert(root, i, i);
         printf("Key:value %zu:%d \n", i, avlGetValue(root,i));
     }
+    
+    avlFreeTree(root);
+    root = NULL;
 
 
     return 0;
