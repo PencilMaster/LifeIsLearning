@@ -38,7 +38,7 @@
  *
  * Might want to add:
  * 1. avlGetSize() -- returns amount of elements inside, can be used to create new tree if size is 0.
- * 2. avlFreeTree() -- frees entire tree from root node.
+ * 2. bool avlFreeTree() -- frees entire tree from root node.
  *
  *  --- Mutate keystruct ---
  * 1. AVLTree* avlCreateTree(const int key, const int value);               -- DONE
@@ -221,16 +221,34 @@ int avlDeleteNode(AVLNode* node) {
 }
 
 void avlFreeNode(AVLNode* node) {
-    //if (node->parent && node->keyStruct.key > node->parent->keyStruct.key) {
-    //    node->parent->right = NULL;
-    //}
-    //else if (node->parent && node->keyStruct.key < node->parent->keyStruct.key) {
-    //    node->parent->left = NULL;
-    //}
-
     free(node);
     return;
 }
+
+bool avlFreeTree(AVLNode* root) {
+    assert(root != NULL && "FUNCTION: AVLFREETREE ---- STOPPED ---- ROOT == NULL");
+    AVLNode* temp = root;
+    AVLNode* rLeft = root->left;
+    AVLNode* rRight = root->right;
+
+    while (rLeft || rRight) {
+        while (temp->left) temp = temp->left;
+        if (temp->right) temp = temp->right;
+        else {
+            toDel = temp;
+            temp = temp->parent;
+            avlFreeNode(toDel);
+            if (temp && temp->left) temp->left = NULL;
+            else if (temp) temp->right = NULL;
+        }
+    }
+
+    avlFreeNode(root);
+    assert(root == NULL && "FUNCTION: AVLFREETREE --- STOPPED --- FREED ROOT IS NOT NULL");
+    
+    return 1;
+}
+
 
 // =============================================== FIND FUNCTIONS ===============================================
 
