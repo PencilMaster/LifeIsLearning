@@ -49,6 +49,8 @@
  *  --- Utility functions ---
  * 1. int avlGetHeight(AVLNode* node); // if node == NULL return 0          -- DONE
  * 2. int avlGetValue(AVLNode* node, int key);                              -- DONE
+ * 3. void avlPrintTree(const AVLTree* root);                               -- IN PROGRESS / NOT ADDED TO .H
+ * 4. bool avlChildDirection(const AVLNode* node);                          -- IN PROGRESS / NOT ADDED TO .H
  * 
  *  --- Delete functions ---
  * 1. int avlDeleteKey(AVLNode* node, const int key);                       -- DONE
@@ -182,13 +184,18 @@ int avlGetValue(AVLNode* node, int key)
 
 void avlPrintTree(const AVLTree* root) 
 {
-    
-    while (root->left || root->right) {
-        while (temp->left) temp = temp->left;
-        printf("Key:Value %d:%d", temp->key, temp->value);
-        if (temp->right) {
-            temp = temp->right;
+    AVLNode* temp = root;
+    while (root->left || root->right) { // This condition is still wrong
+        if (temp->left || temp->right) { 
+            while (temp->left) temp = temp->left;
             printf("Key:Value %d:%d", temp->key, temp->value);
+            if (temp->right) temp = temp->right;
+        }
+
+        else {
+            int childKey = temp->key;
+            temp = temp->parent;
+            // MAYBE WRITE PARENTDIRECTION FUNCTION TO FIND OUT IF COMING FROM LEFT OR RIGHT
         }
 
     }
