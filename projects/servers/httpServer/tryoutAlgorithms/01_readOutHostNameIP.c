@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
     for (p = res; p != NULL; p = p->ai_next)
     {
         void *addr;
-        char ipver[4];
+        char *ipver;
         struct sockaddr_in *ipv4;
         struct sockaddr_in6 *ipv6;
 
