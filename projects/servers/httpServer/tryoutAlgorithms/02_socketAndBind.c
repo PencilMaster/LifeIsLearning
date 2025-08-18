@@ -6,6 +6,9 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <netdb.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 
 int main(int argc, char *argv[]) 
 {
@@ -19,15 +22,15 @@ int main(int argc, char *argv[])
 
     if ((s = getaddrinfo(NULL, "3490", &hints, &res)) != 0) 
     {
-        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(status));
+        fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
         return 1;
     }
     
-    for ((struct addrinfo *) it = res; it; it = it->ai_next)
+    for (struct addrinfo *it = res; it; it = it->ai_next)
     {
-        if ((sockfd = socket(it->ai_family, it->ai_addr, it->ai_addrlen)) == -1) //Should use PF_INET(6) instead of ai_family but it does work otherwise
+        if ((sockfd = socket(it->ai_family, it->ai_socktype, it->ai_protocol)) == -1) //Should use PF_INET(6) instead of ai_family but it does work otherwise
         {
-            fprintf("socket, errno: %d\n", errno);
+            perror("listener: socket");
             return 2;
         }
 
@@ -35,7 +38,7 @@ int main(int argc, char *argv[])
         {
             break;
         }
-        fprintf("bind, errno: %d\n", errno);
+        perror("listener: bind");
     }
 
     
