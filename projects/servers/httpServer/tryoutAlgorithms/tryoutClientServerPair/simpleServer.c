@@ -154,6 +154,7 @@ int main(void)
         if (!pid)
         {
             close(sockfd); // listener is not needed by child.
+            // case where not full data is sent is not yet handled. Overkill here but need to keep in mind!
             if (send(new_fd, "Hello World!", 13, 0) == -1)
             {
                 perror("send");
