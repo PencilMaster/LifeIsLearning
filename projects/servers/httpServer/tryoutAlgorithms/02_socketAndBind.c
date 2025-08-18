@@ -22,14 +22,24 @@ int main(int argc, char *argv[])
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(status));
         return 1;
     }
-
-    if ((sockfd = socket(res->ai_family, res->ai_addr, res->ai_addrlen)) == -1)
+    
+    for ((struct addrinfo *) it = res; it; it = it->ai_next)
     {
-        fprintf("socket, errno: %s\n", errno);
-        return 2;
+        if ((sockfd = socket(it->ai_family, it->ai_addr, it->ai_addrlen)) == -1) //Should use PF_INET(6) instead of ai_family but it does work otherwise
+        {
+            fprintf("socket, errno: %d\n", errno);
+            return 2;
+        }
+
+        if (bind(sockfd, it->ai_addr, it->ai_addrlen) != -1) 
+        {
+            break;
+        }
+        fprintf("bind, errno: %d\n", errno);
     }
 
-
+    
+    freeaddrinfo(res);
 
     return 0;
 }

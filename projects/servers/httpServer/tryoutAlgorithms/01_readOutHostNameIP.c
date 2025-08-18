@@ -11,7 +11,7 @@
 int main(int argc, char *argv[]) 
 {
     struct addrinfo hints, *res, *p;
-    int status;
+    int status, portNum;
     char ipstr[INET6_ADDRSTRLEN];
     
     if (argc != 2)
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
     
-    if ((status = getaddrinfo(argv[1], NULL, &hints, &res)) != 0)
+    if ((status = getaddrinfo(argv[1], "https", &hints, &res)) != 0)
     {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(status));
         return 2;
@@ -43,18 +43,20 @@ int main(int argc, char *argv[])
         {
             ipv4 = (struct sockaddr_in *) p->ai_addr;
             addr = &(ipv4->sin_addr);
+            portNum = ipv4->sin_port;
             ipver = "IPv4";
         }
         else
         {
             ipv6 = (struct sockaddr_in6 *) p->ai_addr;
             addr = &(ipv6->sin6_addr);
+            portNum = ipv6->sin6_port;
             ipver = "IPv6";
         }
 
         // Now convert IP address from network to presentation (string) and print it:
         inet_ntop(p->ai_family, addr, ipstr, sizeof(ipstr));
-        printf(" %s: %s\n", ipver, ipstr);
+        printf(" %s: %s, Portnumber: %d\n", ipver, ipstr, ntohs(portNum));
     }
 
     freeaddrinfo(res);
