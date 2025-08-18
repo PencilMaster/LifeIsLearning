@@ -51,7 +51,7 @@ int main(void)
 {
     // listen on sockfd, new connections on new_fd
     int sockfd, new_fd;
-    struct addrinfo hints, *serverinfo, *p;
+    struct addrinfo hints, *servinfo, *p;
 
     // connector's address info, unknown whether IPv4 or IPv6
     struct sockaddr_storage their_addr;
@@ -73,7 +73,7 @@ int main(void)
     hints.ai_socktype = SOCK_STREAM;    // Makes sure that bind() only returns valid if port is also a stream_socket
     hints.ai_flags = AI_PASSIVE;        // Makes sure it uses our own IP
     
-    if ((rv = getaddrinfo(NULL, PORT, &hints, &serverinfo)) != 0)
+    if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0)
     {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
         return 1;

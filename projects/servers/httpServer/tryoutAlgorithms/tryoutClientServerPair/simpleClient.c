@@ -25,7 +25,7 @@ void *get_in_addr(struct sockaddr *sa)
     {
         return &(((struct sockaddr_in*)sa)->sin_addr);
     }
-    return &(((struct sockaddr_in6*)sa->sin6_addr);
+    return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
 int main(int argc, char *argv[])
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     int sockfd, numbytes;
     char buf[MAXDATASIZE];
 
-    struct addrinfo hints, *serverinfo, *p;
+    struct addrinfo hints, *servinfo, *p;
     int rv;         // contains errorvalue returned by getaddrinfo()
     char s[INET6_ADDRSTRLEN];
 
@@ -49,14 +49,14 @@ int main(int argc, char *argv[])
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
 
-    if ((rv = getaddrinfo(argv[1], PORT, &hints, &serverinfo)) != 0)
+    if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0)
     {
         fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(rv));
         return 1;
     }
 
     // addrinfo linked list is filled, now we loop over all results and connect to first viable.
-    for (p = serverinfo; p; p = p->ai_next)
+    for (p = servinfo; p; p = p->ai_next)
     {
         if ((sockfd = socket(p->ai_family, p->ai_socktype, p->ai_protocol)) == -1)
         {
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
     // here he uses inet_ntop() again, but we already did it above. I will try without doing it again.
     printf("client: connected to %s\n", s);
 
-    freeaddrinfo(serverinfo);
+    freeaddrinfo(servinfo);
 
     if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1)
     {
