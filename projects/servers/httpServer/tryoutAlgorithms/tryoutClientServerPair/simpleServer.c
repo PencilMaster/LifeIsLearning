@@ -69,7 +69,7 @@ int main(void)
 
     // first we make sure the hints struct is cleared and fill it with wanted hints.
     memset(&hints, 0, sizeof(hints));
-    hints.ai_family = AF_INET;          // Makes sure IPv4 is used for this socket
+    hints.ai_family = AF_UNSPEC;        // Makes sure IPv4 and IPv6 can be held
     hints.ai_socktype = SOCK_STREAM;    // Makes sure that bind() only returns valid if port is also a stream_socket
     hints.ai_flags = AI_PASSIVE;        // Makes sure it uses our own IP
     
