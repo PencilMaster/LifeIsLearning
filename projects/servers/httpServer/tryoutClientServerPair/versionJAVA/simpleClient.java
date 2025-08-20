@@ -2,6 +2,9 @@
 // This is done to further deepen Java knowledge to work on GraalVM.
 //
 //
+import java.io.*;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 
 // Keyword final: Prevents inheritance from main
 public final class Client
