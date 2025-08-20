@@ -42,7 +42,7 @@ public final class Client
                 } catch (IOException e)
                 {
                     last = e;
-                    if (sock != nu;;) try { sock.close(); } catch (IOException ignore) {}
+                    if (sock != null) try { sock.close(); } catch (IOException ignore) {}
                     sock = null;
                 }
             }
