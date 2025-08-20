@@ -8,6 +8,8 @@
 #include <string.h>         // memset
 #include <errno.h>          // errno (if you inspect it)
 
+#include <time.h>
+
 #include <unistd.h>         // close
 #include <sys/types.h>      // socklen_t
 #include <sys/socket.h>     // socket, connect, recv
@@ -48,6 +50,10 @@ int main(int argc, char *argv[])
     memset(&hints, 0, sizeof(hints));
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
+
+    // We implement the clock feature
+    clock_t begin = clock();
+    // clock feature
 
     if ((rv = getaddrinfo(argv[1], PORT, &hints, &servinfo)) != 0)
     {
@@ -102,6 +108,11 @@ int main(int argc, char *argv[])
     buf[numbytes] = '\0';
     printf("client: received '%s'\n", buf);
 
+    // We implement the clock feature
+    clock_t end = clock();
+    printf("CPU time spent in C: %f", (double) 1000 * ((end - begin) / CLOCKS_PER_SEC));
+    // clock feature
+ 
     close(sockfd);
 
     return 0;

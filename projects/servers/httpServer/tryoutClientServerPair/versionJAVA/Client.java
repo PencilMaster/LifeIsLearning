@@ -5,6 +5,8 @@
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadMXBean;
 
 // Keyword final: Prevents inheritance from main
 public final class Client
@@ -29,6 +31,13 @@ public final class Client
             InetAddress[] addrs = InetAddress.getAllByName(host);
             Socket sock = null;
             IOException last = null;
+
+            // We implement the clock feature
+            ThreadMXBean mx = ManagementFactory.getThreadMXBean();
+            // Enable CpuTime support if needed:
+            if (mx.isThreadCpuTimeSupported() && !mx.isThreadCpuTimeEnabled()) mx.setThreadCpuTimeEnabled(true);
+            long begin = mx.getCurrentThreadCpuTime();
+            // clock feature
 
             for (InetAddress addr : addrs)
             {
@@ -78,6 +87,11 @@ public final class Client
             {
                 System.err.println("DNS Resolution failed: " + e.getMessage());
             }
+            
+            // We implement the clock feature
+            long end = mx.getCurrentThreadCpuTime();
+            System.out.println("CPU time spent in Java: " + ((end - begin) / 1_000_000.0));
+            // clock feature
         }  catch (IOException e)
         {
             System.err.println("I/O error: " + e.getMessage());
