@@ -36,3 +36,7 @@
     </tr>
 </table>
         
+a) Idea "response speed"
+a.1) If we write a shell script or python script that compiles, executes and measures the time until it's finished, then compile time will interfere with measurement
+a.2)    When using java timer and C timer classes respectively. Those have different implementations and will impact compilation and runtime as well.
+        They only measure during runtime though, so we will use them for now and check if we can make it even fairer.
