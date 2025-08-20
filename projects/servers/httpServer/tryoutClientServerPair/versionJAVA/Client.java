@@ -16,7 +16,7 @@ public final class Client
     {
         
         // check length of passed arguments (IP-Adress)
-        if (args.length() != 1)
+        if (args.length != 1)
         {
             System.err.println("usage: client hostname unspecified");
             System.exit(1);
@@ -37,7 +37,7 @@ public final class Client
                 {
                     sock = new Socket();
                     // Connect blocks by default, add timeout.
-                    sock.connect(new InetSockAddress(addr, PORT), 5000);
+                    sock.connect(new InetSocketAddress(addr, PORT), 5000);
                     break;
                 } catch (IOException e)
                 {
@@ -51,16 +51,16 @@ public final class Client
             if (sock == null)
             {
                 System.err.println("client: failed to connect");
-                if (last != null) last.printlnStackTrace();         // Prints out last Exception
+                if (last != null) last.printStackTrace();         // Prints out last Exception
                 System.exit(2);
             }
 
             // Now we try to read out the socket TODO: read up on - try catch - syntax
-            try (sock)
+            try 
             {
                 // We want to read up to MAXDATASIZE-1 and print it
                 InputStream in = sock.getInputStream();
-                byte[] bug = new byte[MAXDATASIZE];
+                byte[] buf = new byte[MAXDATASIZE];
 
                 int n = in.read(buf);                               
                 // read() returns negative if server closed connection
@@ -74,11 +74,11 @@ public final class Client
                 String msg = new String(buf, 0, n, StandardCharsets.UTF_8);
                 System.out.println("client: connected to " + sock.getRemoteSocketAddress());
                 System.out.println("client: received '" + msg + "'");
+            } catch (UnknownHostException e)
+            {
+                System.err.println("DNS Resolution failed: " + e.getMessage());
             }
-        } catch (UnknownHostException e)
-        {
-            System.err.println("DNS Resolution failed: " + e.getMessage());
-        } catch (IOException e)
+        }  catch (IOException e)
         {
             System.err.println("I/O error: " + e.getMessage());
         }

@@ -30,10 +30,10 @@ public final class Server
 
                 // Here we start a thread per accepted request. In production a thread pool is better
                 new Thread(() -> handleClient(sock)).start();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
             }
+        } catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -49,7 +49,7 @@ public final class Server
             OutputStream out = sock.getOutputStream();
             out.write("Hello World!".getBytes(StandardCharsets.UTF_8));
             out.flush();                // Flush output stream to be sure
-        } catch (IOExcpetion e)
+        } catch (IOException e)
         {
             // In C we would have perror("send")/EPIPE
             System.err.println("socket-handler error: " + e.getMessage());
