@@ -22,3 +22,17 @@
         <td>Chapter 6 for TCP server</td>    
     </tr>
 </table>
+
+2. Ideas to pursue:
+
+<table style:="width100%">
+    <tr>
+        <th>Idea</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <th>Time difference in connection and response speed in ClientClass in C and Java Implementation</th>
+        <th>Researching time classes</th>
+    </tr>
+</table>
+        

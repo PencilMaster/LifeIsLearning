@@ -1,0 +1,21 @@
+We add explanations of the Java Code and used functions here
+
+1. Structure
+
+a) We start with creating a listener on a new ServerSocket().
+b) We set reuseAddress to true, that the socket (named listener) can be reused again and again.
+c) We bind the socket to a PORT, defining the BACKLOG.
+d) We accept() the next connection -> save it's socket -> start a handlerThread that handles this connection. Use Thread-Pool in next iteration.
+e) handleClient(Socket sock) function
+f) 
+
+
+2. Exception Handling
+
+======= GENERAL KNOWLEDGE =======
+
+Java Socket mapping:
+ - TCP (stream): ServerSocket + Socket (or NIO: ServerSocketChannel + SocketChannel)
+ - UDP (datagram): DatagramSocket (or NIO: DatagramChannel)
+ - Multicast (UDP): MulticastSocket (subclass of DatagramSocket)
+ - There's no public Java API for raw sockets (we'd need JNI/JNA)
