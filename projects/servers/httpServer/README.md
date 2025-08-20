@@ -31,8 +31,8 @@
         <th>Status</th>
     </tr>
     <tr>
-        <th>Time difference in connection and response speed in ClientClass in C and Java Implementation</th>
-        <th>Researching time classes</th>
+        <td>Time difference in connection and response speed in ClientClass in C and Java Implementation</td>
+        <td>Researching time classes</td>
     </tr>
 </table>
         
