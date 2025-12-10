@@ -45,7 +45,7 @@ It also prints a welcome message stating its version number and a copyright noti
 >>> theWorldIsFlat = True
 >>> if theWorldIsFlat:
 ...    print("Be careful not to fall off!")
-```\
+```
 
 ## 2.2. The Interpreter and Its Environment
 
