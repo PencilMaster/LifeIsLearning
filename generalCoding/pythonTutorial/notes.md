@@ -21,9 +21,9 @@ This only on systems that support [GNU Readline](https://tiswww.case.edu/php/che
 Different versions of calling the Interpretor:<br>
 1. Calling it with standard input, connected to a tty device, makes it read and execute commands interactively.
 2. Calling it with a file name argument or with a file as std::in, makes it read and execute a script from that file.
-3. `python -c command [arg] ...` executes the statement(s) in command, analogous to the shell's (\-c)[https://docs.python.org/3/using/cmdline.html#cmdoption-c] option. Because of python indentation and other specialness, best to quote the command in its entirety.
+3. `python -c command [arg] ...` executes the statement(s) in command, analogous to the shell's [-c](https://docs.python.org/3/using/cmdline.html#cmdoption-c) option. Because of python indentation and other specialness, best to quote the command in its entirety.
 4. To invoke Python modules as scripts, use `python -m module [arg] ...`. This executes the source file for module as if you had spelled its full name on the command line.
-5. To enter interactive mode after using a script file, use the flag (-i)[https://docs.python.org/3/using/cmdline.html#cmdoption-i] before the script.
+5. To enter interactive mode after using a script file, use the flag [-i](https://docs.python.org/3/using/cmdline.html#cmdoption-i) before the script.
 
 All command line options are described in [Command line and environment](https://docs.python.org/3/using/cmdline.html#using-on-general).<br>
 
@@ -72,5 +72,7 @@ Fun Fact: On Unix, the Python 3.x interpreter is by default not installed with t
 
 ## 2.3. Links
 [GNU Readline](https://tiswww.case.edu/php/chet/readline/rltop.html)<br>
+[-c](https://docs.python.org/3/using/cmdline.html#cmdoption-c)<br>
+[-i](https://docs.python.org/3/using/cmdline.html#cmdoption-i)<br>
 [Command line and environment](https://docs.python.org/3/using/cmdline.html#using-on-general)<br>
 [UNIX "shebang" line](https://docs.python.org/3/tutorial/appendix.html#tut-scripts)
