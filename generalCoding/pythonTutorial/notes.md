@@ -59,10 +59,18 @@ To declare an encoding different than the default, add a special line as the fir
 ```{source=python3.14, include=TRUE, echo=FALSE}
 # -*- coding: <encoding>  -*-
 
-ex.
+# ex.
 # -*- coding: cp1252 -*-
 
-Exception to the rule is a [UNIX "shebang" line](https://docs.python.org/3/tutorial/appendix.html#tut-scripts)
+# Exception to the rule is a [UNIX "shebang" line](https://docs.python.org/3/tutorial/appendix.html#tut-scripts)
+# Here the encoding should be added as the second line
+#!/usr/bin/env python3
+# -*- coding: cp1252 -*-
 ```
 
+Fun Fact: On Unix, the Python 3.x interpreter is by default not installed with the executable named python, so that it does not conflict with a simultaneously installed Python 2.x executable.
 
+Links:<br>
+[GNU Readline](https://tiswww.case.edu/php/chet/readline/rltop.html)<br>
+[Command line and environment](https://docs.python.org/3/using/cmdline.html#using-on-general)<br>
+[UNIX "shebang" line](https://docs.python.org/3/tutorial/appendix.html#tut-scripts)
