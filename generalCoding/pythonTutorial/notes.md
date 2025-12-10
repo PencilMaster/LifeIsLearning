@@ -12,6 +12,37 @@ Python is extensible: if you know how to program in C it is easy to add a new bu
 Execute the interpreter by running 'python3.14'.\
 Exit it with 'Ctrl+d' on UNIX or 'quit()'.\
 
+Interpreter's line editing features include:\
+- Interactive Editing\
+- History Substitution\
+- Code Completion\
+This only on systems that support [GNU Readline](https://tiswww.case.edu/php/chet/readline/rltop.html) library.\
 
+Different versions of calling the Interpretor:\
+1. Calling it with standard input, connected to a tty device, makes it read and execute commands interactively.\
+2. Calling it with a file name argument or with a file as std::in, makes it read and execute a script from that file.\
+3. 'python -c command [arg] ...' executes the statement(s) in command, analogous to the shell's (-c)[https://docs.python.org/3/using/cmdline.html#cmdoption-c] option. Because of python indentation and other specialness, best to quote the command in its entirety.\
+4. To invoke Python modules as scripts, use 'python -m module [arg] ...'. This executes the source file for module as if you had spelled its full name on the command line.\
+5. To enter interactive mode after using a script file, use the flag (-i)[https://docs.python.org/3/using/cmdline.html#cmdoption-i] before the script.\
 
+All command line options are described in [Command line and environment](https://docs.python.org/3/using/cmdline.html#using-on-general).
 
+### 2.1.1. Argument Passing
+
+The 'sys' module is used to interact with the system. One use of it is: If the interpreter is called with a script name and additional arguments afterwards, then the name is assigned to 'sys.argv[0]' and the additional arguments are assigned to 'sys.argv[1,...]'.\
+When it is invoked with '-c', then 'sys.argv[0]' is '-c'. With '-m' it becomes the full name of the located module.\
+Other options after '-c' command or '-m' module, are not consumed by interpreter's option processing but left in 'sys.argv[1,...]'\
+
+### 2.1.2. Interactive Mode
+
+Interpreter is in 'Interactive Mode' when it reads commands from a tty (texttypewriter).\
+In this mode it prompts for the next command with the primary prompt '>>>'.\
+For continuation lines it prompts with the 'secondary prompt' '...'.\
+It also prints a welcome message stating its version number and a copyright notice before printing the first prompt.\
+
+'...' is used inside if statements for example:
+'''{source=python3.14, include=TRUE, echo=FALSE}
+>>> the_world_is_flat = True
+>>> if the_world_is_flat:
+...    print("Be careful not to fall off!")
+'''
