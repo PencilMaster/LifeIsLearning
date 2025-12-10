@@ -57,10 +57,10 @@ Important: Any portable code should only use ASCII characters for identifiers. T
 
 To declare an encoding different than the default, add a special line as the first line of the file.\
 ```{source=python3.14, include=TRUE, echo=FALSE}
-\# -\*- coding:  -\*-
+# -*- coding: <encoding>  -*-
 
 ex.
-\# -\*- coding: cp1252 -\*-
+# -*- coding: cp1252 -*-
 
 Exception to the rule is a 
 ```
