@@ -41,11 +41,11 @@ For continuation lines it prompts with the 'secondary prompt' '...'.\
 It also prints a welcome message stating its version number and a copyright notice before printing the first prompt.\
 
 '...' is used inside if statements for example:
-'''{source=python3.14, include=TRUE, echo=FALSE}
+```{source=python3.14, include=TRUE, echo=FALSE}
 >>> theWorldIsFlat = True
 >>> if theWorldIsFlat:
 ...    print("Be careful not to fall off!")
-'''\
+```\
 
 ## 2.2. The Interpreter and Its Environment
 
@@ -56,11 +56,11 @@ In 'UTF-8' most language characters can be used simultaneously in string literal
 Important: Any portable code should only use ASCII characters for identifiers. The standard library does the same.\
 
 To declare an encoding different than the default, add a special line as the first line of the file.\
-'''{source=python3.14, include=TRUE, echo=FALSE}
-\# -*- coding: <encoding> -*-
+```{source=python3.14, include=TRUE, echo=FALSE}
+\# -\*- coding:  -\*-
 
 ex.
--*- coding: cp1252 -*-
+\# -\*- coding: cp1252 -\*-
 
 Exception to the rule is a 
-'''
+```
