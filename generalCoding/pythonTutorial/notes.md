@@ -70,7 +70,7 @@ To declare an encoding different than the default, add a special line as the fir
 
 Fun Fact: On Unix, the Python 3.x interpreter is by default not installed with the executable named python, so that it does not conflict with a simultaneously installed Python 2.x executable.
 
-Links:<br>
+## 2.3. Links
 [GNU Readline](https://tiswww.case.edu/php/chet/readline/rltop.html)<br>
 [Command line and environment](https://docs.python.org/3/using/cmdline.html#using-on-general)<br>
 [UNIX "shebang" line](https://docs.python.org/3/tutorial/appendix.html#tut-scripts)
