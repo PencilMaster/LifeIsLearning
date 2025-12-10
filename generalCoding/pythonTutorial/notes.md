@@ -25,7 +25,7 @@ Different versions of calling the Interpretor:\
 4. To invoke Python modules as scripts, use 'python -m module [arg] ...'. This executes the source file for module as if you had spelled its full name on the command line.\
 5. To enter interactive mode after using a script file, use the flag (-i)[https://docs.python.org/3/using/cmdline.html#cmdoption-i] before the script.\
 
-All command line options are described in [Command line and environment](https://docs.python.org/3/using/cmdline.html#using-on-general).
+All command line options are described in [Command line and environment](https://docs.python.org/3/using/cmdline.html#using-on-general).\
 
 ### 2.1.1. Argument Passing
 
@@ -42,7 +42,25 @@ It also prints a welcome message stating its version number and a copyright noti
 
 '...' is used inside if statements for example:
 '''{source=python3.14, include=TRUE, echo=FALSE}
->>> the_world_is_flat = True
->>> if the_world_is_flat:
+>>> theWorldIsFlat = True
+>>> if theWorldIsFlat:
 ...    print("Be careful not to fall off!")
+'''\
+
+## 2.2. The Interpreter and Its Environment
+
+### 2.2.1. Source Code Encoding
+
+By default, source files are treated as if they are encoded in 'UTF-8'.\
+In 'UTF-8' most language characters can be used simultaneously in string literals, identifiers and comments.\
+Important: Any portable code should only use ASCII characters for identifiers. The standard library does the same.\
+
+To declare an encoding different than the default, add a special line as the first line of the file.\
+'''{source=python3.14, include=TRUE, echo=FALSE}
+\# -*- coding: <encoding> -*-
+
+ex.
+-*- coding: cp1252 -*-
+
+Exception to the rule is a 
 '''
