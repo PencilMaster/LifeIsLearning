@@ -177,5 +177,18 @@ while a<10:
     a, b = b, a+b
 ```
 
+**Key points here:**
+
+1.  `Multiple assignment` in first line - variables a und b get values 0 and 1 assigned.<br>
+    This shows, that the RHS expressions are evaluated first, before any assignments take place.<br>
+    The RHS expressions are assigned from the left to right.<br>
+2.  [while](https://docs.python.org/3/reference/compound_stmts.html#while) loop executes as long as condition remains true.<br>
+    Any non-zero integer value is true; zero is false. The condition may be any sequence; anything with a non-zero length is true, empty is false.<br>
+    Standard comparison operators are the same as in C. <br>
+3.  Indentation groups statements in Python.
+4.  [print()](https://docs.python.org/3/library/functions.html#print) function writes values of the argument(s) given.<br>
+    String are printed without quotes, and a space is inserted between items. `print('Hello', i)` -> `Hello World!` when i='World!'.<br>
+
+# 4. More Control Flow Tools
 
 
