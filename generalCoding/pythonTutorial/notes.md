@@ -102,7 +102,7 @@ Expression syntax is straight forward. `+` `-` `*` `/` are used to perform arith
 - `\` always returns a float.
 - `\\` does a floor division.
 - `%` calculates the remainder.
-- `**` calculates powers. (base ** power).
+- `**` calculates powers. (base ** power). IMPORTANT: Precedence of `**` is higher than `-`.
 - `=` assigns a RHS value to a LHS variable. Afterwards no result is displayed before the next interactive prompt.
 - `_` in interactive mode, the last printed expression is assigned to this variable. Easy to use for calculations. Never assign this variable in interactive mode, it will mask the built-in variable.
 - Operators with mixed type operands, convert the integer operand to floating point -> Full support for floating point.<br>
@@ -114,6 +114,68 @@ Python also supports other number types, such as [Decimal](https://docs.python.o
 Text can be characters, (data type [str](https://docs.python.org/3/library/stdtypes.html#str) or string) and numbers, can be enclosed in single or double quotes `'...'` or `"..."` with the same result.<br>
 Watch out, special characters exist when using `\` followed by other characters.<br>
 For Example:
-- To quote a quote, we need to escape it `'doesn\'t'` will be shown correctly.
+- To quote a quote, we need to escape it `'doesn\'t'` will be shown correctly. Trick: inside `"` we don't need to escape `'` and vice-versa.
+- In Python shell, without using `print()`, it shows the raw string without transforming special characters.
+- In Python shell, using `print()`, special characters are transformed. `\n` for example will create a new line in the output.
+- Raw strings can be used in `print()` by prefacing the string with an `r`. `print(r'C:\some\name')` will not activate `\n`.
+- Rule: Raw strings are not allowed to end in an odd number of `\` characters -> [FAQ entry](https://docs.python.org/3/faq/programming.html#faq-programming-raw-string-backslash).
+- Create string literals that span multiple lines, using triple-quotes `"""..."""` or `'''...'''`. EOL characters `\n` are automatically included in the string. To prevent the automatic addition of an `\n`, write `\` at the end of a line inside the string.<br>
+
+Concatenation of strings:
+- They can be glued together using the `+` operator.
+- They can be repeater with the `*` operator.
+- Two or more string literals next to each other are automatically concatenated.
+- Automatic concatenation only works with literals and not with variables or expressions. When mixing types, use `+`.<br>
+
+Indexing (used to obtain individual characters) and Slicing (used to obtain substrings):
+- Indexing (subscripting) of strings works with \<variable\_name\>[\<index\>]. A character is simply a string of size one in Python.
+- Indexing also works with negative numbers, where `-1` denotes the position of the last character in the string.
+- Syntax: \<variable\>[\<inclusive\_start\>:\<exlusive\_end\>].
+- Default value of slice indices it either zero for the first index, or the size of the string being sliced for the second index.
+- Syntax: \<variable\>[:\<exlusive\_end\>]. This also works with negative indices, ex. `string[-2:]` contains the last two characters.
+- Error: When using an Index that is too large. len(word) == 5 -> word[42] throws an error.
+- No Error: Out of range slice indexes always work. word[4:42], word[42:] == ''.
+- Error: Trying to mutate a string / overwrite parts of it. Always throws an error. Strings are [immutable](https://docs.python.org/3/glossary.html#term-immutable).
+- When you need a different string, create a new one and use slicing to your advantage. word[:2] + 'J' + word[3:].
+- Built in function `len()` returns the length of a string.<br>
+
+Useful Links:
+- [Text Sequence Type](https://docs.python.org/3/library/stdtypes.html#textseq)
+- [String Methods](https://docs.python.org/3/library/stdtypes.html#string-methods)
+- [f-strings](https://docs.python.org/3/reference/lexical_analysis.html#f-strings)
+- [Format String Syntax](https://docs.python.org/3/library/string.html#formatstrings)
+- [printf-style String Formatting](https://docs.python.org/3/library/stdtypes.html#old-string-formatting)<br>
+
+### 3.1.3. Lists
+
+There are many compound data types in python. They are used to group together other values. The list can be written as a list of comma-seperated values (items) between square brackets. They may contain different types, but usually the items all have the same type. And they can be indexed and sliced just like strings (and all other built-in [sequence](https://docs.python.org/3/glossary.html#term-sequence) types).<br>
+Example: `squares = [1, 4, 9, 16, 25]`<br>
+- Lists also support concatenation with the `+` operator.
+- Lists are [mutable](https://docs.python.org/3/glossary.html#term-mutable) unlike strings.
+- Add new items at the end of a list using the method `list.append()`.
+
+Important difference to other languages:
+Assignment in Python using the `=` operator always assigns by reference. All changes to one reference will also be visible from the other variables that refer to it.<br>
+This is easily visible calling `id()` function on list variables and comparing them.<br>
+
+Shallow copies:
+- All slice operations return a new list containing the requested elements.
+- Trick: To copy assign, do `copy_letters = letters[:]` and any changes to copy\_letters will be local to that variable.
+- Allowed: Assigning to a slice, use the following syntax:
+- `Syntax[2:4] = ['C', 'D', 'E']` or even `letters[2:4] = []`.
+- `Syntax[2] = 'C', 'D', 'E'`. In the output, this section will be saved in entry `2` as a tuple ('C', 'D', 'E'). Tuple are immutable.
+- Built in function `len()` also works on lists.
+- We can nest lists: `a = [1, 2]`, `n = ['a', 'b']`, `x = [a, n]`.<br>
+
+## 3.2. First Steps Towards Programming
+
+```{source=python3.14, include=TRUE, echo=FALSE}
+# Fibonacci series:
+a, b = 0, 1
+while a<10:
+    print(a)
+    a, b = b, a+b
+```
+
 
 
