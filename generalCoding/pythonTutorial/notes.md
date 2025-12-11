@@ -111,4 +111,9 @@ Python also supports other number types, such as [Decimal](https://docs.python.o
 
 ### 3.1.2. Text
 
+Text can be characters, (data type [str](https://docs.python.org/3/library/stdtypes.html#str) or string) and numbers, can be enclosed in single or double quotes `'...'` or `"..."` with the same result.<br>
+Watch out, special characters exist when using `\` followed by other characters.<br>
+For Example:
+- To quote a quote, we need to escape it `'doesn\'t'` will be shown correctly.
+
 
