@@ -216,4 +216,17 @@ for w in scenario:
 ```
 
 In python a for loop always iterates over all items in the given sequence (list or string), in the order that they appear inside the sequence. [Enumerate](https://docs.python.org/3/library/functions.html#enumerate) can be used to get the index of the current item inside the loop as well (from 0 to len(w)-1).<br>
+In python it is recommended to loop and modify the copy of a collection and not the original directly. Two ways:<br>
+
+```{source=python3.14, include=TRUE, echo=FALSE}
+users = {'Hans': 'active', 'Éléonore': 'inactive', '景太郎': 'active'}
+for user, status in users.copy().items():
+    if status == 'inactive':
+        del users[user]
+
+activeUsers = {}
+for user, status in users.items():
+    if status == 'active':
+        activeUsers[user] = status
+```
 
