@@ -191,4 +191,29 @@ while a<10:
 
 # 4. More Control Flow Tools
 
+## 4.1. `if` Statements
+
+Link: [if](https://docs.python.org/3/reference/compound_stmts.html#if).<br>
+
+```{source=python3.14, include=TRUE, echo=FALSE}
+if <condition>:
+    elif <condition2>:
+    elif <condition3>:
+    else:
+```
+
+There can be zero or more [elif](https://docs.python.org/3/reference/compound_stmts.html#elif) parts and the [else](https://docs.python.org/3/reference/compound_stmts.html#else) part is optional.<br>
+In python the most similar to `switch case` statements would be [match statements](https://docs.python.org/3/tutorial/controlflow.html#tut-match).<br>
+
+## 4.2. `for` Statements
+
+Link: [for](https://docs.python.org/3/reference/compound_stmts.html#for).<br>
+
+```{source=python3.14, include=TRUE, echo=FALSE}
+scenario = ['cat', 'window', 'defenestate']
+for w in scenario:
+    print(w, len(w))
+```
+
+In python a for loop always iterates over all items in the given sequence (list or string), in the order that they appear inside the sequence. [Enumerate](https://docs.python.org/3/library/functions.html#enumerate) can be used to get the index of the current item inside the loop as well (from 0 to len(w)-1).<br>
 
